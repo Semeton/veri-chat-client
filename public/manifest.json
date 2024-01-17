@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "VeriVault Chat",
+  "name": "Simple and secure end-to-end knowledge proof chat application built untop of VeriVault REST Service",
   "icons": [
     {
       "src": "favicon.ico",
