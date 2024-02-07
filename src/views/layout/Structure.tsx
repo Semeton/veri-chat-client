@@ -37,7 +37,7 @@ const Structure: React.FC<StructureProps> = ({ page }) => {
             <FontAwesomeIcon icon={faBell} size="lg" />
           </Link>
         </header>
-        <main className="mb-auto p-3 overflow-y-scroll">{page}</main>
+        <main className="mb-auto p-3 px-5 overflow-y-scroll">{page}</main>
         <div className="h-20 bottom-0 bg-gray-950 w-screen pt-3">
           <div className="flex items-center justify-around text-center text-sm text-white">
             <Link to="/dashboard">
