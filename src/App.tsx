@@ -1,8 +1,19 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import Login from "./services/api/auth/Login";
+import LocalStorageStore from "./util/db/LocalStorageStore";
 
 function App() {
+  const token = LocalStorageStore.getValue("token");
+  if (!token) {
+    const login = new Login();
+    const formdata = new FormData();
+    formdata.append("email", "balogunsemeton@gmail.com");
+    formdata.append("password", "semeton123");
+    login.attempt(formdata);
+  }
+  console.log("token", token);
   return (
     <div className="App">
       <header className="App-header">
