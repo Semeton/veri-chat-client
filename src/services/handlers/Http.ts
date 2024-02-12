@@ -1,13 +1,13 @@
-import LocalStorageStore from "../../util/db/LocalStorageStore";
+import { token } from "../../lib/Token";
 
 class Http {
   private token: string;
 
   constructor() {
-    this.token = LocalStorageStore.getValue("token");
+    this.token = token;
   }
 
-  public async get(url: string = ""): Promise<any> {
+  async get(url: string = ""): Promise<any> {
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Content-Type", "application/json");
@@ -21,7 +21,7 @@ class Http {
     return response.json();
   }
 
-  public async post(url: string, data: any): Promise<any> {
+  async post(url: string, data: any): Promise<any> {
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Authorization", "Bearer " + this.token);

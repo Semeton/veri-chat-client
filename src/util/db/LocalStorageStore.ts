@@ -24,6 +24,10 @@ class LocalStorageStore {
     }
     return JSON.parse(stringValue);
   }
+
+  static deleteValue(key: string): void {
+    localStorage.removeItem(key);
+  }
 }
 
 export default LocalStorageStore;
