@@ -4,13 +4,14 @@ import { Endpoints } from "../urls/Endpoints";
 import LocalStorageStore from "../../../util/db/LocalStorageStore";
 import handleException from "../../handlers/ExceptionHandler";
 import Alerts from "../../../util/alerts/Alerts";
+import { IRequest } from "../../requests/Request";
 
 interface ILogin {
   validated: boolean;
   errors: Record<string, string>;
 }
 
-class Login implements ILogin {
+class Login implements ILogin, IRequest {
   validated: boolean = true;
   errors: Record<string, string> = {};
   public url: string;
@@ -29,17 +30,14 @@ class Login implements ILogin {
 
       this.Http.post(this.url, credentials)
         .then((res) => {
-          if (!res.error) {
+          if (!res.error && res.token) {
             LocalStorageStore.storeData({ token: res.token });
-            console.log(res.token);
           } else {
-            console.log(res);
             Alerts.error(res.message);
           }
         })
         .catch((e) => {
-          console.log(e);
-          return e;
+          Alerts.error(e.message);
         });
     });
   }
