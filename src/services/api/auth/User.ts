@@ -3,7 +3,8 @@ import Http from "../../handlers/Http";
 import { baseUrl } from "../urls/Links";
 import { Endpoints } from "../urls/Endpoints";
 import LocalStorageStore from "../../../util/db/LocalStorageStore";
-import { IRequest } from "../../requests/Request";
+import { IRequest } from "../../handlers/Request";
+import Alerts from "../../../util/alerts/Alerts";
 
 class User implements IRequest {
   public Http: Http;
@@ -14,27 +15,28 @@ class User implements IRequest {
     this.url = baseUrl + Endpoints.me;
   }
 
-  getUser(): any {
+  getUser(): void {
     handleException(() => {
       this.Http.get(this.url)
         .then((res) => {
-          console.log(res);
+          if (res.message) {
+            Alerts.error(res.message);
+          }
           this.saveUserInLocalStorage(res);
-          //   return res;
         })
         .catch((e) => {
-          console.log(e);
+          Alerts.error(e);
         });
     });
   }
 
-  saveUserInLocalStorage(user: Record<string, any>) {
+  saveUserInLocalStorage(user: Record<string, any>): void {
     handleException(() => {
       LocalStorageStore.storeData({ user: user });
     });
   }
 
-  logout(): any {
+  logout(): void {
     handleException(() => {
       const authData: string[] = ["token", "user"];
       authData.forEach((value) => {

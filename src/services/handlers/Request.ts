@@ -1,4 +1,4 @@
-import Http from "../handlers/Http";
+import Http from "./Http";
 
 interface IRequest {
   Http: Http;

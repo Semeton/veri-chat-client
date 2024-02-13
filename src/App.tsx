@@ -1,8 +1,8 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import Login from "./services/api/auth/Login";
 import LocalStorageStore from "./util/db/LocalStorageStore";
+import User from "./services/api/auth/User";
+import Router from "./routes/Routes";
 
 function App() {
   const token = LocalStorageStore.getValue("token");
@@ -14,22 +14,18 @@ function App() {
     login.attempt(formdata);
   }
   console.log("token", token);
+  if (token) {
+    const user = new User();
+    user.getUser();
+    const userD = LocalStorageStore.getValue("user");
+    console.log(userD);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <div className="hidden lg:block">This is a large screen</div>
+      <div className="lg:hidden">
+        <Router />
+      </div>
     </div>
   );
 }

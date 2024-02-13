@@ -4,7 +4,7 @@ import { Endpoints } from "../urls/Endpoints";
 import LocalStorageStore from "../../../util/db/LocalStorageStore";
 import handleException from "../../handlers/ExceptionHandler";
 import Alerts from "../../../util/alerts/Alerts";
-import { IRequest } from "../../requests/Request";
+import { IRequest } from "../../handlers/Request";
 
 interface ILogin {
   validated: boolean;

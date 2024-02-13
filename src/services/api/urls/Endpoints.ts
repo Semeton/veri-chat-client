@@ -1,6 +1,6 @@
 export const Endpoints = {
   login: "/users/login",
-  register: "/users/me",
-  me: "/users/register",
+  register: "/users/register",
+  me: "/users/me",
   sendChatRequest: "/chats/request"
 };
