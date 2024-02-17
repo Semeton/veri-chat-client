@@ -23,7 +23,7 @@ const SentMails: React.FC = () => {
     <div className="fixed right-0 left-0 bottom-0 top-0">
       {loading && <Loader />}
       <div className="flex flex-col h-screen justify-between bg-gray-900 text-white">
-        <main className="mb-auto p-4">
+        <main className="mb-auto p-4 px-5">
           <div onClick={goBack} className={"cursor-pointer"}>
             <FontAwesomeIcon icon={faArrowLeftLong} className="mr-3" />
             Back
