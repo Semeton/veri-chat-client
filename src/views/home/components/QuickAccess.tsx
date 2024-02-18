@@ -6,6 +6,7 @@ import { faUserSecret, faVault } from "@fortawesome/free-solid-svg-icons";
 const QuickAccess = () => {
   const navigate = useNavigate();
   const chats = () => navigate("/chats");
+  const vault = () => navigate("/vault");
   const styles = "bg-gray-800 p-3 rounded-md border border-gray-600";
 
   return (
@@ -18,7 +19,7 @@ const QuickAccess = () => {
           <b>Secure Messaging</b>
           <p className="text-sm p-0">Zero-knowledge-proof encrypted messages</p>
         </div>
-        <div className={styles}>
+        <div className={styles} onClick={vault}>
           <div className="mb-2">
             <FontAwesomeIcon icon={faVault} size="lg" />
           </div>
