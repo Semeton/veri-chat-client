@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import Loader from "../../components/Loader";
+import Loader from "../components/Loader";
+import { useNavigate } from "react-router-dom";
 
-const SentChatRequests: React.FC = () => {
+const SentMails: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -14,12 +14,11 @@ const SentChatRequests: React.FC = () => {
   const goBack = () => {
     setLoading(true);
     setTimeout(() => {
-      navigate("/chats");
+      navigate("/emails");
     }, 1000);
   };
-
   const styles: string =
-    "flex bg-gray-800 p-3 rounded-md border border-gray-600 items-center justify-between mb-3";
+    "flex bg-gray-950 p-3 text-white rounded-md border border-gray-800 items-center justify-between mt-1";
   return (
     <div className="fixed right-0 left-0 bottom-0 top-0">
       {loading && <Loader />}
@@ -31,7 +30,7 @@ const SentChatRequests: React.FC = () => {
           </div>
           <div className="mt-8 mb-5">
             <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
-              All Sent Requests
+              All Sent Emails
             </h1>
           </div>
           <div className="mt-3 overflow-y-scroll">
@@ -44,8 +43,11 @@ const SentChatRequests: React.FC = () => {
                     className="mr-3"
                   />
                   <div className="mr-2">
-                    <p>Balogun Semeton</p>
-                    <p className="text-sm text-indigo-500">New Request</p>
+                    <p className="text-xs">2 days ago</p>
+                    <p>Business Proposal</p>
+                    <p className="text-sm text-indigo-500 text-indigo-500">
+                      semeton@email.com
+                    </p>
                   </div>
                 </div>
                 <div className="mr-2">
@@ -60,8 +62,9 @@ const SentChatRequests: React.FC = () => {
                     className="mr-3"
                   />
                   <div className="mr-2">
-                    <p>Semeton James</p>
-                    <p className="text-sm text-indigo-500">New Request</p>
+                    <p className="text-xs">2 days ago</p>
+                    <p>Business Proposal</p>
+                    <p className="text-sm text-indigo-500">semeton@email.com</p>
                   </div>
                 </div>
                 <div className="mr-2">
@@ -76,8 +79,9 @@ const SentChatRequests: React.FC = () => {
                     className="mr-3"
                   />
                   <div className="mr-2">
-                    <p>Balogun James</p>
-                    <p className="text-sm text-green-500">Accepted</p>
+                    <p className="text-xs">2 days ago</p>
+                    <p>Business Proposal</p>
+                    <p className="text-sm text-indigo-500">semeton@email.com</p>
                   </div>
                 </div>
                 <div className="mr-2">
@@ -92,8 +96,9 @@ const SentChatRequests: React.FC = () => {
                     className="mr-3"
                   />
                   <div className="mr-2">
-                    <p>Jimoh Gbesi</p>
-                    <p className="text-sm text-green-500">Accepted</p>
+                    <p className="text-xs">2 days ago</p>
+                    <p>Business Proposal</p>
+                    <p className="text-sm text-indigo-500">semeton@email.com</p>
                   </div>
                 </div>
                 <div className="mr-2">
@@ -108,8 +113,9 @@ const SentChatRequests: React.FC = () => {
                     className="mr-3"
                   />
                   <div className="mr-2">
-                    <p>Jimoh James</p>
-                    <p className="text-sm text-red-500">Rejected</p>
+                    <p className="text-xs">2 days ago</p>
+                    <p>Business Proposal</p>
+                    <p className="text-sm text-indigo-500">semeton@email.com</p>
                   </div>
                 </div>
                 <div className="mr-2">
@@ -124,4 +130,4 @@ const SentChatRequests: React.FC = () => {
   );
 };
 
-export default SentChatRequests;
+export default SentMails;

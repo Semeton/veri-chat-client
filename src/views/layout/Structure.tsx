@@ -19,13 +19,13 @@ const Structure: React.FC<StructureProps> = ({ page }) => {
   return (
     <div className="fixed">
       <div className="flex flex-col h-screen justify-between bg-gray-900">
-        <header className="flex justify-between text-white p-3 px-5 items-center mb-2">
+        <header className="flex justify-between text-white pt-2 px-5 items-center mb-2">
           <Link to="/dashb">
             <FontAwesomeIcon icon={faUserGear} size="lg" />
           </Link>
           <Link
             to="/dashb"
-            className="text-indigo-500 rounded-full h-20 w-20 bg-gray-950 text-center flex items-center"
+            className="text-indigo-500 rounded-full h-16 w-16 bg-gray-950 text-center flex items-center"
           >
             <FontAwesomeIcon
               className="animate-bounce text-center mx-auto"
@@ -52,8 +52,8 @@ const Structure: React.FC<StructureProps> = ({ page }) => {
                 <div className="mt-1">Chats</div>
               </div>
             </Link>
-            <Link to="/mails">
-              <div className={path === "/mails" ? "text-indigo-500" : ""}>
+            <Link to="/emails">
+              <div className={path === "/emails" ? "text-indigo-500" : ""}>
                 <FontAwesomeIcon icon={faEnvelope} size="lg" />
                 <div className="mt-1">Mails</div>
               </div>

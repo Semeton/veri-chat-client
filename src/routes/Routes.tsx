@@ -8,6 +8,8 @@ import Dashboard from "../views/home/Dashboard";
 import SignUp from "../views/auth/SignUp";
 import Chat from "../views/chat/Chat";
 import SentChatRequests from "../views/chat/components/SentChatRequests";
+import Email from "../views/email/Email";
+import SentMails from "../views/email/SentMails";
 
 const Router = (): JSX.Element => {
   return (
@@ -25,6 +27,12 @@ const Router = (): JSX.Element => {
         </Route>
         <Route path="/sent-requests" element={<AuthRoute />}>
           <Route path="/sent-requests" element={<SentChatRequests />} />
+        </Route>
+        <Route path="/emails" element={<AuthRoute />}>
+          <Route path="/emails" element={<Email />} />
+        </Route>
+        <Route path="/sent-emails" element={<AuthRoute />}>
+          <Route path="/sent-emails" element={<SentMails />} />
         </Route>
       </Routes>
     </BrowserRouter>

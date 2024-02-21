@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
-// import { faUserLock } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../../components/Loader";
 import DefaultModal from "../../components/modals/DefaultModal";
 import Login from "../../../services/api/auth/Login";
@@ -91,12 +90,6 @@ const ChatQuickAccess = () => {
             </div>
             Sent Requests
           </div>
-          {/* <div className={styles}>
-            <div className="mb-2 mr-3 pt-1">
-              <FontAwesomeIcon icon={faUserLock} size="lg" />
-            </div>
-            Locked Chats
-          </div> */}
         </div>
       </div>
     </>
