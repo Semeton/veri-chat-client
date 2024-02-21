@@ -88,9 +88,9 @@ const Vault = () => {
               />
             </div>
             {loading ? (
-              <LoadingButton type="button" text="Sending..." />
+              <LoadingButton type="button" text="Processing..." />
             ) : (
-              <PrimaryButton type="submit" text="Send Email" />
+              <PrimaryButton type="submit" text="Encrypt" />
             )}
           </form>
         </div>
