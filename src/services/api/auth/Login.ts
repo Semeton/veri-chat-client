@@ -5,6 +5,7 @@ import LocalStorageStore from "../../../util/db/LocalStorageStore";
 import handleException from "../../handlers/ExceptionHandler";
 import Alerts from "../../../util/alerts/Alerts";
 import { IRequest } from "../../handlers/Request";
+import User from "./User";
 
 interface ILogin {
   validated: boolean;
@@ -16,28 +17,31 @@ class Login implements ILogin, IRequest {
   errors: Record<string, string> = {};
   public url: string;
   public Http: Http;
+  public user: User;
 
   constructor() {
     this.Http = new Http();
+    this.user = new User();
     this.url = baseUrl + Endpoints.login;
   }
 
   attempt(credentials: FormData) {
     handleException(() => {
       if (!this.validate(credentials)) {
+        console.log(this.errors)
         return this.errors;
       }
 
       this.Http.post(this.url, credentials)
         .then((res) => {
-          if (!res.error && res.token) {
-            LocalStorageStore.storeData({ token: res.token });
-          } else {
-            Alerts.error(res.message);
-          }
+          LocalStorageStore.storeData({ token: res.token });
+          this.createUser();
+          window.location.href = "/dashboard";
         })
         .catch((e) => {
-          Alerts.error(e.message);
+          console.log(e);
+          let message = e.response?.data?.message ?? e.message;
+          Alerts.error(message);
         });
     });
   }
@@ -63,6 +67,10 @@ class Login implements ILogin, IRequest {
     }
 
     return this.validated;
+  }
+
+  private createUser(): void {
+    this.user.getUser();
   }
 }
 

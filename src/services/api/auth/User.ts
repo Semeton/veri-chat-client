@@ -30,7 +30,7 @@ class User implements IRequest {
     });
   }
 
-  saveUserInLocalStorage(user: Record<string, any>): void {
+  private saveUserInLocalStorage(user: Record<string, any>): void {
     handleException(() => {
       LocalStorageStore.storeData({ user: user });
     });
