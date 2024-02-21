@@ -10,6 +10,8 @@ import Chat from "../views/chat/Chat";
 import SentChatRequests from "../views/chat/components/SentChatRequests";
 import Email from "../views/email/Email";
 import SentMails from "../views/email/SentMails";
+import Vault from "../views/vault/Vault";
+import VaultContents from "../views/vault/components/VaultContents";
 
 const Router = (): JSX.Element => {
   return (
@@ -33,6 +35,12 @@ const Router = (): JSX.Element => {
         </Route>
         <Route path="/sent-emails" element={<AuthRoute />}>
           <Route path="/sent-emails" element={<SentMails />} />
+        </Route>
+        <Route path="/vault" element={<AuthRoute />}>
+          <Route path="/vault" element={<Vault />} />
+        </Route>
+        <Route path="/vault-contents" element={<AuthRoute />}>
+          <Route path="/vault-contents" element={<VaultContents />} />
         </Route>
       </Routes>
     </BrowserRouter>

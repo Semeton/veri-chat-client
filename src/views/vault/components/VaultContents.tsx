@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader";
 
-const SentMails: React.FC = () => {
+const VaultContents: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const SentMails: React.FC = () => {
   const goBack = () => {
     setLoading(true);
     setTimeout(() => {
-      navigate("/emails");
+      navigate("/vault");
     }, 1000);
   };
   const styles: string =
@@ -30,7 +30,7 @@ const SentMails: React.FC = () => {
           </div>
           <div className="mt-8 mb-5">
             <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
-              All Sent Emails
+              Encrpted Texts
             </h1>
           </div>
           <div className="mt-3 overflow-y-scroll">
@@ -130,4 +130,4 @@ const SentMails: React.FC = () => {
   );
 };
 
-export default SentMails;
+export default VaultContents;
