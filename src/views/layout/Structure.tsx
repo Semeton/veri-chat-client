@@ -24,7 +24,7 @@ const Structure: React.FC<StructureProps> = ({ page }) => {
             <FontAwesomeIcon icon={faUserGear} size="lg" />
           </Link>
           <Link
-            to="/dashb"
+            to="/dashboard"
             className="text-indigo-500 rounded-full h-16 w-16 bg-gray-950 text-center flex items-center"
           >
             <FontAwesomeIcon
