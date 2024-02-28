@@ -5,8 +5,7 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faVault } from "@fortawesome/free-solid-svg-icons";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
-import { faUserGear } from "@fortawesome/free-solid-svg-icons";
+import Header from "./Header";
 
 interface StructureProps {
   page: React.ReactNode;
@@ -19,25 +18,10 @@ const Structure: React.FC<StructureProps> = ({ page }) => {
   return (
     <div className="fixed">
       <div className="flex flex-col h-screen justify-between bg-gray-900">
-        <header className="flex justify-between text-white pt-2 px-5 items-center mb-2">
-          <Link to="/dashb">
-            <FontAwesomeIcon icon={faUserGear} size="lg" />
-          </Link>
-          <Link
-            to="/dashboard"
-            className="text-indigo-500 rounded-full h-16 w-16 bg-gray-950 text-center flex items-center"
-          >
-            <FontAwesomeIcon
-              className="animate-bounce text-center mx-auto"
-              icon={faUserSecret}
-              size="2xl"
-            />
-          </Link>
-          <Link to="/dashb">
-            <FontAwesomeIcon icon={faBell} size="lg" />
-          </Link>
-        </header>
-        <main className="mb-auto p-3 px-5 overflow-y-scroll">{page}</main>
+        <Header />
+        <main id="main" className="mb-auto p-3 px-5 overflow-y-scroll">
+          {page}
+        </main>
         <div className="h-20 bottom-0 bg-gray-950 w-screen pt-3">
           <div className="flex items-center justify-around text-center text-sm text-white">
             <Link to="/dashboard">
