@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Login from "../../services/api/auth/Login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +10,7 @@ const SignIn = () => {
     { email: "", password: "" }
   );
   const [loading, setLoading] = useState<boolean>(false);
+  // const navigate = useNavigate();
 
   const onHandleChange = (e: any) => {
     const { name, value } = e.target;
@@ -17,18 +20,16 @@ const SignIn = () => {
   const handleSubmit = (e: any) => {
     setLoading(true);
     e.preventDefault();
-    setTimeout(() => {
-      const credentials: FormData = new FormData();
-      credentials.append("email", formdata.email);
-      credentials.append("password", formdata.password);
+    // setTimeout(() => {
+    const credentials: FormData = new FormData();
+    credentials.append("email", formdata.email);
+    credentials.append("password", formdata.password);
 
-      const login = new Login();
-      login.attempt(credentials);
-      setLoading(false);
-    }, 4000);
+    const login = new Login();
+    login.attempt(credentials);
   };
   return (
-    <div>
+    <div className="fixed top-0 left-0 right-0">
       <section className="bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
           <a
@@ -116,12 +117,12 @@ const SignIn = () => {
 
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{" "}
-                  <a
-                    href="/signup"
-                    className="font-medium text-indigo-600 hover:underline dark:text-indigo-500"
+                  <Link
+                    to="/signup"
+                    className="font-medium hover:underline text-indigo-500"
                   >
                     Sign up
-                  </a>
+                  </Link>
                 </p>
               </form>
             </div>

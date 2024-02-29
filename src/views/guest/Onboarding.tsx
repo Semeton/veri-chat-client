@@ -57,9 +57,9 @@ const Onboarding = () => {
   }, [navigate]);
 
   return (
-    <div>
+    <div className="fixed top-0 left-0 right-0">
       <div className="flex flex-col items-center h-screen bg-gray-800 text-white text-center px-5">
-        <div className="h-[42vh] w-[100vw] mb-2 overflow-hidden mb-4">
+        <div className="h-[42vh] w-screen mb-2 overflow-hidden mb-4">
           <img
             className="mx-auto my-auto"
             src={slides[currentSlide].image}

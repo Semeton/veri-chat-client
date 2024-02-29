@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Login from "../../services/api/auth/Login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
@@ -26,7 +27,7 @@ const SignUp = () => {
     console.log(login.attempt(credentials));
   };
   return (
-    <div>
+    <div className="fixed top-0 left-0 right-0">
       <section className="bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
           <a
@@ -101,12 +102,12 @@ const SignUp = () => {
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Have an account?{" "}
-                  <a
-                    href="/signin"
+                  <Link
+                    to="/signin"
                     className="font-medium hover:underline text-indigo-500"
                   >
                     Sign in
-                  </a>
+                  </Link>
                 </p>
               </form>
             </div>

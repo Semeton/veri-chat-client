@@ -25,17 +25,17 @@ class Login implements ILogin, IRequest {
     this.url = baseUrl + Endpoints.login;
   }
 
-  attempt(credentials: FormData) {
+  attempt(credentials: FormData): any {
     handleException(() => {
       if (!this.validate(credentials)) {
-        console.log(this.errors)
+        console.log(this.errors);
         return this.errors;
       }
 
       this.Http.post(this.url, credentials)
         .then((res) => {
           LocalStorageStore.storeData({ token: res.token });
-          this.createUser();
+          console.log(res);
           window.location.href = "/dashboard";
         })
         .catch((e) => {
@@ -67,10 +67,6 @@ class Login implements ILogin, IRequest {
     }
 
     return this.validated;
-  }
-
-  private createUser(): void {
-    this.user.getUser();
   }
 }
 

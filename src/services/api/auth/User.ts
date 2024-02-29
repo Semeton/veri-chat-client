@@ -36,7 +36,7 @@ class User implements IRequest {
     });
   }
 
-  logout(): void {
+  static logout(): void {
     handleException(() => {
       const authData: string[] = ["token", "user"];
       authData.forEach((value) => {
