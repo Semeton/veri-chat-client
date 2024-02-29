@@ -25,14 +25,15 @@ const SentChatRequests: React.FC = () => {
       {loading && <Loader />}
       <div className="flex flex-col h-screen justify-between bg-gray-900 text-white">
         <main className="mb-auto p-4 px-5">
-          <div onClick={goBack} className={"cursor-pointer"}>
-            <FontAwesomeIcon icon={faArrowLeftLong} className="mr-3" />
-            Back
-          </div>
-          <div className="mt-8 mb-5">
-            <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
-              All Sent Requests
-            </h1>
+          <div className="grid grid-cols-3 justify-between text-white items-center mb-5 mt-2">
+            <div onClick={goBack} className={"cursor-pointer"}>
+              <FontAwesomeIcon icon={faArrowLeftLong} />
+            </div>
+            <div className="col-span-2">
+              <h1 className="text-lg font-bold leading-tight tracking-tight md:text-2xl text-white">
+                All Sent Requests
+              </h1>
+            </div>
           </div>
           <div className="mt-3 overflow-y-scroll">
             <div className="grid">
