@@ -13,6 +13,7 @@ import SentMails from "../views/email/SentMails";
 import Vault from "../views/vault/Vault";
 import VaultContents from "../views/vault/components/VaultContents";
 import SideBar from "../views/layout/SideBar";
+import Profile from "../views/profile/Profile";
 
 const Router = (): JSX.Element => {
   return (
@@ -45,6 +46,9 @@ const Router = (): JSX.Element => {
         </Route>
         <Route path="/vault-contents" element={<AuthRoute />}>
           <Route path="/vault-contents" element={<VaultContents />} />
+        </Route>
+        <Route path="/profile" element={<AuthRoute />}>
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
     </BrowserRouter>

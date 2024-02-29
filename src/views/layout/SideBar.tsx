@@ -36,7 +36,7 @@ const SideBar: React.FC = () => {
         </div>
         <nav className="mt-4 text-xl text-center  mx-auto">
           <Link
-            to="/dashboard"
+            to="/profile"
             className="flex items-center py-2 hover:bg-gray-700"
           >
             <div className="grid grid-cols-6 items-center gap-5">
