@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Login from "../../services/api/auth/Login";
 import LoadingButton from "../components/buttons/LoadingButton";
 import PrimaryButton from "../components/buttons/PrimaryButton";
@@ -6,6 +6,7 @@ import Structure from "../layout/Structure";
 import { userDetails } from "../../lib/UserDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -19,10 +20,12 @@ const Profile = () => {
     email: userDetails.email
   });
 
-  const main = document.getElementById("header");
-  if (main) {
-    main.style.display = "none";
-  }
+  useEffect(() => {
+    const main = document.getElementById("headerLayout");
+    if (main) {
+      main.style.display = "none";
+    }
+  });
 
   const onHandleChange = (e: any) => {
     const { name, value } = e.target;
@@ -47,7 +50,7 @@ const Profile = () => {
   const page = (
     <div className="text-white">
       <div className="items-center mt-6">
-        <div className="mx-auto flex items-center justify-center text-center">
+        <div className="flex items-center justify-center text-center flex-row">
           <div className="text-indigo-500 rounded-full h-20 w-20 bg-gray-950 text-center justify-center flex items-center mr-4">
             <FontAwesomeIcon
               className="text-center mx-auto"
@@ -117,6 +120,9 @@ const Profile = () => {
           </form>
         </div>
       </div>
+      <Link to="/dashboard" className="text-center text-indigo-500 text-sm">
+        <div className="text-center mt-6">Back Home</div>
+      </Link>
     </div>
   );
   return <Structure page={page} />;

@@ -23,6 +23,7 @@ class User implements IRequest {
             Alerts.error(res.message);
           }
           this.saveUserInLocalStorage(res);
+          window.location.reload();
         })
         .catch((e) => {
           Alerts.error(e);

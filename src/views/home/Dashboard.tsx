@@ -14,7 +14,7 @@ const Dashboard = () => {
       let user = new User();
       user.getUser();
     }
-  }, []);
+  });
 
   const styles = "bg-gray-800 p-3 border-2 border-gray-800";
   const page = (
