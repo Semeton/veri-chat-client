@@ -41,7 +41,7 @@ const SideBar: React.FC = () => {
           >
             <div className="grid grid-cols-6 items-center gap-5">
               <FontAwesomeIcon
-                className="text-center col-span-2"
+                className="text-center w-[1.5rem] col-span-2"
                 icon={faUser}
               />
               <span className="col-span-4">Profile</span>
@@ -54,19 +54,19 @@ const SideBar: React.FC = () => {
             <div className="grid grid-cols-6 items-center gap-5">
               <FontAwesomeIcon
                 icon={faGear}
-                className="text-center col-span-2"
+                className="text-center w-[1.5rem] col-span-2"
               />
               <span className="col-span-4">Settings</span>
             </div>
           </Link>
           <Link
-            to="/chats"
+            to="/privacy"
             className="flex items-center py-2 hover:bg-gray-700"
           >
             <div className="grid grid-cols-6 items-center gap-5">
               <FontAwesomeIcon
                 icon={faEyeSlash}
-                className="text-center col-span-2"
+                className="text-center w-[1.5rem] col-span-2"
               />
               <span className="col-span-4">Privacy</span>
             </div>
@@ -78,7 +78,7 @@ const SideBar: React.FC = () => {
             <div className="grid grid-cols-6 items-center gap-5">
               <FontAwesomeIcon
                 icon={faRightFromBracket}
-                className="text-center col-span-2 pr-1"
+                className="text-center w-[1.5rem] col-span-2"
               />
               <span className="col-span-4">Logout</span>
             </div>

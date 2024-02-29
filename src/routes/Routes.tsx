@@ -16,6 +16,7 @@ import SideBar from "../views/layout/SideBar";
 import Profile from "../views/profile/Profile";
 import Notification from "../views/notification/Notification";
 import Settings from "../views/settings/Settings";
+import Privacy from "../views/privacy/Privacy";
 
 const Router = (): JSX.Element => {
   return (
@@ -57,6 +58,9 @@ const Router = (): JSX.Element => {
         </Route>
         <Route path="/settings" element={<AuthRoute />}>
           <Route path="/settings" element={<Settings />} />
+        </Route>
+        <Route path="/privacy" element={<AuthRoute />}>
+          <Route path="/privacy" element={<Privacy />} />
         </Route>
       </Routes>
     </BrowserRouter>

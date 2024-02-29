@@ -2,18 +2,16 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretRight,
-  faCircleMinus,
-  faIdBadge,
-  faKey,
+  faGhost,
+  faHandDots,
   faShieldHalved
-  //   faUserSecret
 } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../components/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import Structure from "../layout/Structure";
 
-const Settings: React.FC = () => {
+const Privacy: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -49,7 +47,7 @@ const Settings: React.FC = () => {
             </div>
             <div className="text-center cols-span-2">
               <h1 className="text-lg font-bold leading-tight tracking-tight md:text-2xl text-white">
-                Settings
+                Privacy
               </h1>
             </div>
           </div>
@@ -58,10 +56,10 @@ const Settings: React.FC = () => {
               <div className={styles}>
                 <div className="flex items-center">
                   <div className="w-[2rem]">
-                    <FontAwesomeIcon icon={faKey} className="mr-3" />
+                    <FontAwesomeIcon icon={faGhost} className="mr-3" />
                   </div>
                   <div className="mr-2">
-                    <p>Change Password</p>
+                    <p>Ghost Mode</p>
                   </div>
                 </div>
                 <div className="mr-2">
@@ -74,38 +72,27 @@ const Settings: React.FC = () => {
                     <FontAwesomeIcon icon={faShieldHalved} className="mr-3" />
                   </div>
                   <div className="mr-2">
-                    <p>Two-Step Verification</p>
+                    <p>Purge Data</p>
                   </div>
                 </div>
                 <div className="mr-2">
                   <FontAwesomeIcon icon={faCaretRight} />
                 </div>
               </div>
-              <div className={styles}>
-                <div className="flex items-center">
-                  <div className="w-[2rem]">
-                    <FontAwesomeIcon icon={faIdBadge} className="mr-3" />
-                  </div>
-                  <div className="mr-2">
-                    <p>Request Account Info</p>
-                  </div>
+            </div>
+            <hr className="mt-5 mb-5 border-gray-700" />
+
+            <div className={styles}>
+              <div className="flex items-center">
+                <div className="w-[2rem]">
+                  <FontAwesomeIcon icon={faHandDots} className="mr-3" />
                 </div>
                 <div className="mr-2">
-                  <FontAwesomeIcon icon={faCaretRight} />
+                  <p>Privacy Policy</p>
                 </div>
               </div>
-              <div className={styles}>
-                <div className="flex items-center">
-                  <div className="w-[2rem]">
-                    <FontAwesomeIcon icon={faCircleMinus} className="mr-3" />
-                  </div>
-                  <div className="mr-2">
-                    <p>Delete My Account</p>
-                  </div>
-                </div>
-                <div className="mr-2">
-                  <FontAwesomeIcon icon={faCaretRight} />
-                </div>
+              <div className="mr-2">
+                <FontAwesomeIcon icon={faCaretRight} />
               </div>
             </div>
           </div>
@@ -120,4 +107,4 @@ const Settings: React.FC = () => {
   return <Structure page={page} />;
 };
 
-export default Settings;
+export default Privacy;
