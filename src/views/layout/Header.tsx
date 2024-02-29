@@ -11,18 +11,18 @@ const Header: React.FC = () => {
   main?.addEventListener("click", () => {
     setShowSideBar(false);
   });
-  const openSideBar = () => {
+  const openSideBar = (): any => {
     setShowSideBar(true);
   };
 
-  const closeSideBar: any = () => {
+  const closeSideBar = (): any => {
     setShowSideBar(false);
   };
 
   return (
     <div className="p-0 m-0">
       <div
-        className={`transform top-0 left-0 w-[250px] fixed h-full overflow-auto ease-in-out transition-all duration-300 ${
+        className={`transform top-0 left-0 w-[300px] fixed h-full overflow-auto ease-in-out transition-all duration-300 ${
           showSideBar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
