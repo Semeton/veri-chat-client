@@ -15,6 +15,7 @@ import VaultContents from "../views/vault/components/VaultContents";
 import SideBar from "../views/layout/SideBar";
 import Profile from "../views/profile/Profile";
 import Notification from "../views/notification/Notification";
+import Settings from "../views/settings/Settings";
 
 const Router = (): JSX.Element => {
   return (
@@ -53,6 +54,9 @@ const Router = (): JSX.Element => {
         </Route>
         <Route path="/notifications" element={<AuthRoute />}>
           <Route path="/notifications" element={<Notification />} />
+        </Route>
+        <Route path="/settings" element={<AuthRoute />}>
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
     </BrowserRouter>

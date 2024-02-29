@@ -48,7 +48,7 @@ const SideBar: React.FC = () => {
             </div>
           </Link>
           <Link
-            to="/dashboard"
+            to="/settings"
             className="flex items-center py-2 hover:bg-gray-700"
           >
             <div className="grid grid-cols-6 items-center gap-5">

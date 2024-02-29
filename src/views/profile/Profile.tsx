@@ -21,9 +21,9 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    const main = document.getElementById("headerLayout");
-    if (main) {
-      main.style.display = "none";
+    const header = document.getElementById("headerLayout");
+    if (header) {
+      header.style.display = "none";
     }
   });
 
