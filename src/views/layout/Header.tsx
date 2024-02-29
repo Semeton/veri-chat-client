@@ -28,10 +28,7 @@ const Header: React.FC = () => {
       >
         <SideBar />
       </div>
-      <header
-        className="grid grid-cols-3 justify-between text-white items-center mb-2"
-        //
-      >
+      <header className="grid grid-cols-3 justify-between text-white items-center mb-2">
         <div onClick={openSideBar} className="h-16 flex p-6 items-center">
           <FontAwesomeIcon icon={faUserGear} size="lg" />
         </div>
