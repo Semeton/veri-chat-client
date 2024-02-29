@@ -31,7 +31,7 @@ const SentChatRequests: React.FC = () => {
             </div>
             <div className="col-span-2">
               <h1 className="text-lg font-bold leading-tight tracking-tight md:text-2xl text-white">
-                All Sent Requests
+                Sent Requests
               </h1>
             </div>
           </div>

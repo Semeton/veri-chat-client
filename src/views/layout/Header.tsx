@@ -4,6 +4,7 @@ import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { faUserGear } from "@fortawesome/free-solid-svg-icons";
 import SideBar from "./SideBar";
+import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   const [showSideBar, setShowSideBar] = useState<boolean>(false);
@@ -48,7 +49,9 @@ const Header: React.FC = () => {
           onClick={closeSideBar}
           className="flex justify-end items-center p-6 h-16"
         >
-          <FontAwesomeIcon icon={faBell} size="lg" />
+          <Link to="/notifications">
+            <FontAwesomeIcon icon={faBell} size="lg" />
+          </Link>
         </div>
       </header>
     </div>

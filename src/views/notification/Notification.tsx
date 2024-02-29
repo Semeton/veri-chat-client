@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
@@ -6,15 +6,22 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
 
-const SentMails: React.FC = () => {
+const Notification: React.FC = () => {
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [setLoading]);
 
   const navigate = useNavigate();
 
   const goBack = () => {
     setLoading(true);
     setTimeout(() => {
-      navigate("/emails");
+      navigate("/dashboard");
     }, 1000);
   };
   const styles: string =
@@ -28,10 +35,13 @@ const SentMails: React.FC = () => {
             <div onClick={goBack} className={"cursor-pointer"}>
               <FontAwesomeIcon icon={faArrowLeftLong} />
             </div>
-            <div className="col-span-2">
+            <div className="text-center">
               <h1 className="text-lg font-bold leading-tight tracking-tight md:text-2xl text-white">
-                Sent Emails
+                Notifications
               </h1>
+            </div>
+            <div className="text-right">
+              <p className="text-sm">clear</p>
             </div>
           </div>
           <div className="mt-5 overflow-y-scroll">
@@ -46,9 +56,6 @@ const SentMails: React.FC = () => {
                   <div className="mr-2">
                     <p className="text-xs">2 days ago</p>
                     <p>Business Proposal</p>
-                    <p className="text-sm text-indigo-500 text-indigo-500">
-                      semeton@email.com
-                    </p>
                   </div>
                 </div>
                 <div className="mr-2">
@@ -65,7 +72,6 @@ const SentMails: React.FC = () => {
                   <div className="mr-2">
                     <p className="text-xs">2 days ago</p>
                     <p>Business Proposal</p>
-                    <p className="text-sm text-indigo-500">semeton@email.com</p>
                   </div>
                 </div>
                 <div className="mr-2">
@@ -82,7 +88,6 @@ const SentMails: React.FC = () => {
                   <div className="mr-2">
                     <p className="text-xs">2 days ago</p>
                     <p>Business Proposal</p>
-                    <p className="text-sm text-indigo-500">semeton@email.com</p>
                   </div>
                 </div>
                 <div className="mr-2">
@@ -99,7 +104,6 @@ const SentMails: React.FC = () => {
                   <div className="mr-2">
                     <p className="text-xs">2 days ago</p>
                     <p>Business Proposal</p>
-                    <p className="text-sm text-indigo-500">semeton@email.com</p>
                   </div>
                 </div>
                 <div className="mr-2">
@@ -116,7 +120,6 @@ const SentMails: React.FC = () => {
                   <div className="mr-2">
                     <p className="text-xs">2 days ago</p>
                     <p>Business Proposal</p>
-                    <p className="text-sm text-indigo-500">semeton@email.com</p>
                   </div>
                 </div>
                 <div className="mr-2">
@@ -131,4 +134,4 @@ const SentMails: React.FC = () => {
   );
 };
 
-export default SentMails;
+export default Notification;
