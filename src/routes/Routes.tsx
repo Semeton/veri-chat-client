@@ -12,6 +12,7 @@ import Email from "../views/email/Email";
 import SentMails from "../views/email/SentMails";
 import Vault from "../views/vault/Vault";
 import VaultContents from "../views/vault/components/VaultContents";
+import SideBar from "../views/layout/SideBar";
 
 const Router = (): JSX.Element => {
   return (
@@ -23,6 +24,9 @@ const Router = (): JSX.Element => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<AuthRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route path="/sidebar" element={<AuthRoute />}>
+          <Route path="/sidebar" element={<SideBar />} />
         </Route>
         <Route path="/chats" element={<AuthRoute />}>
           <Route path="/chats" element={<Chat />} />
