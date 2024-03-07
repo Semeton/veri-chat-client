@@ -16,25 +16,25 @@ const Onboarding = () => {
       image: messaging,
       title: "Secure Messaging",
       description:
-        "Enjoy secure messaging with zero-knowledge-proof encryption. Your messages are completely private and unreadable by anyone else."
+        "Enjoy secure messaging with zero-knowledge-proof encryption. Your messages are completely private and unreadable by anyone else.",
     },
     {
       image: email,
       title: "Encrypted Mails",
       description:
-        "Encrypt your emails to keep them private and secure. Only the recipient will be able to read the content of your email"
+        "Encrypt your emails to keep them private and secure. Only the recipient will be able to read the content of your email",
     },
     {
       image: vault,
       title: "Secret Vault",
       description:
-        "Store your sensitive data and messages securely in the Secure Vault. Your data is encrypted and no one other than you can access it"
+        "Store your sensitive data and messages securely in the Secure Vault. Your data is encrypted and no one other than you can access it",
     },
     {
       image: welcome,
       title: "Welcome to Verivault",
-      description: "Get started with our amazing features"
-    }
+      description: "Get started with our amazing features",
+    },
   ];
 
   const handleNextSlide = useCallback(() => {
@@ -57,9 +57,9 @@ const Onboarding = () => {
   }, [navigate]);
 
   return (
-    <div className="fixed top-0 left-0 right-0">
-      <div className="flex flex-col items-center h-screen bg-gray-800 text-white text-center px-5">
-        <div className="h-[42vh] w-screen mb-2 overflow-hidden mb-4">
+    <div className="fixed left-0 right-0 top-0">
+      <div className="flex h-screen flex-col items-center bg-gray-800 px-5 text-center text-white">
+        <div className="mb-4 h-[42vh] w-screen overflow-hidden">
           <img
             className="mx-auto my-auto"
             src={slides[currentSlide].image}
@@ -68,18 +68,18 @@ const Onboarding = () => {
           />
         </div>
         <div className="mt-6">
-          <h1 className="text-3xl font-bold mb-4">
+          <h1 className="mb-4 text-3xl font-bold">
             {slides[currentSlide].title}
           </h1>
         </div>
-        <p className="text-lg mb-6">{slides[currentSlide].description}</p>
+        <p className="mb-6 text-lg">{slides[currentSlide].description}</p>
         {currentSlide < slides.length - 1 && (
-          <div onClick={handleNextSlide} className="w-full mt-4">
+          <div onClick={handleNextSlide} className="mt-4 w-full">
             <PrimaryButton type="button" text="Next" />
           </div>
         )}
         {currentSlide === slides.length - 1 && (
-          <div onClick={handleNextSlide} className="w-full mt-4">
+          <div onClick={handleNextSlide} className="mt-4 w-full">
             <PrimaryButton type="button" text="Get Started" />
           </div>
         )}
