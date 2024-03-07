@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Login from "../../services/api/auth/Login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import VerifyEmail from "./VerifyEmail";
 
 const SignUp = () => {
   const [formdata, setFormdata] = useState<{
@@ -11,6 +11,7 @@ const SignUp = () => {
     password: string;
     cpassword: string;
   }>({ name: "", email: "", password: "", cpassword: "" });
+  const [verify, setVerify] = useState<Boolean>(false);
 
   const onHandleChange = (e: any) => {
     const { name, value } = e.target;
@@ -19,20 +20,21 @@ const SignUp = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const credentials: FormData = new FormData();
-    credentials.append("email", formdata.email);
-    credentials.append("password", formdata.password);
-
-    const login = new Login();
-    console.log(login.attempt(credentials));
+    console.log("clicked");
+    setVerify(true);
   };
+
+  if (verify) {
+    return <VerifyEmail email={formdata.email} />;
+  }
+
   return (
-    <div className="fixed top-0 left-0 right-0">
+    <div className="fixed left-0 right-0 top-0">
       <section className="bg-gray-900">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
+        <div className="mx-auto flex h-screen flex-col items-center justify-center px-6 py-8 lg:py-0">
           <a
             href="/home"
-            className="flex items-center mb-6 text-2xl font-semibold text-white animate-bounce"
+            className="mb-6 flex animate-bounce items-center text-2xl font-semibold text-white"
           >
             <FontAwesomeIcon
               icon={faUserSecret}
@@ -40,9 +42,9 @@ const SignUp = () => {
             />
             VeriVault
           </a>
-          <div className="w-full rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
+          <div className="w-full rounded-lg border-gray-700 bg-gray-800 shadow sm:max-w-md md:mt-0 xl:p-0">
+            <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
                 Create an account
               </h1>
               <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
@@ -51,9 +53,9 @@ const SignUp = () => {
                     type="text"
                     name="name"
                     id="name"
-                    className="border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                    className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-300 bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
                     placeholder="firstname lastname"
-                    value={formdata.email}
+                    value={formdata.name}
                     onChange={onHandleChange}
                     required
                   />
@@ -63,7 +65,7 @@ const SignUp = () => {
                     type="email"
                     name="email"
                     id="email"
-                    className="border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                    className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-500 bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
                     placeholder="email"
                     value={formdata.email}
                     onChange={onHandleChange}
@@ -76,7 +78,7 @@ const SignUp = () => {
                     name="password"
                     id="password"
                     placeholder="password"
-                    className="border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                    className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-500 bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
                     value={formdata.password}
                     onChange={onHandleChange}
                     required
@@ -88,7 +90,7 @@ const SignUp = () => {
                     name="cpassword"
                     id="cpassword"
                     placeholder="confirm password"
-                    className="border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                    className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-300 border-gray-600 bg-gray-700 p-2.5 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     value={formdata.cpassword}
                     onChange={onHandleChange}
                     required
@@ -96,7 +98,7 @@ const SignUp = () => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-indigo-800"
+                  className="w-full rounded-lg bg-indigo-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-800"
                 >
                   Sign up
                 </button>
@@ -104,7 +106,7 @@ const SignUp = () => {
                   Have an account?{" "}
                   <Link
                     to="/signin"
-                    className="font-medium hover:underline text-indigo-500"
+                    className="font-medium text-indigo-500 hover:underline"
                   >
                     Sign in
                   </Link>
