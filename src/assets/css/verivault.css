@@ -1,0 +1,9 @@
+.character {
+    border: 1px solid var(--primary-color);
+    /* font-size: 20px; */
+    border-radius: 10px;
+    width: 45px;
+    color: var(--primary-color) 9;
+    background-color: #f6f5fa;
+    box-shadow: 0 2px 0 #e4e2f5;
+}

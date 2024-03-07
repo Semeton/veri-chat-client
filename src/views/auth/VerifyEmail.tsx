@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import Http from "../../services/handlers/Http";
+import { Endpoints } from "../../services/api/urls/Endpoints";
+import { baseUrl } from "../../services/api/urls/Links";
 // import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
@@ -6,14 +9,19 @@ import VerificationInput from "react-verification-input";
 import LoadingButton from "../components/buttons/LoadingButton";
 import PrimaryButton from "../components/buttons/PrimaryButton";
 import DisabledButton from "../components/buttons/DisabledButton";
+import LocalStorageStore from "../../util/db/LocalStorageStore";
+import Alerts from "../../util/alerts/Alerts";
 
 const VerifyEmail: React.FC<{
   email: string;
 }> = ({ email }) => {
   const [code, setCode] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [timeLeft, setTimeLeft] = useState<number>(30);
+  const [timeLeft, setTimeLeft] = useState<number>(20);
   // const navigate = useNavigate();
+  const http = new Http();
+  const verifyCodeUrl = baseUrl + Endpoints.verify + `/${code}`;
+  const resendVerifyCodeUrl = baseUrl + Endpoints.verifyToken + `/${email}`;
 
   useEffect(() => {
     if (timeLeft === 0) return;
@@ -29,7 +37,39 @@ const VerifyEmail: React.FC<{
   };
 
   const handleSubmit = (e: any) => {
+    e.preventDefault();
     setLoading(true);
+    http
+      .get(verifyCodeUrl)
+      .then((res) => {
+        console.log(res);
+        if (res.token) {
+          LocalStorageStore.storeData({ token: res.token });
+        }
+        Alerts.success(res.message);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.log(e);
+        let message = e.response?.data?.message ?? e.message;
+        Alerts.error(message);
+        setLoading(false);
+      });
+  };
+
+  const resendVerificationCode = () => {
+    http
+      .get(resendVerifyCodeUrl)
+      .then((res) => {
+        Alerts.success(res.message);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.log(e);
+        let message = e.response?.data?.message ?? e.message;
+        Alerts.error(message);
+        setLoading(false);
+      });
   };
 
   return (
@@ -48,20 +88,20 @@ const VerifyEmail: React.FC<{
             <b>VeriVault</b>
           </a>
           <div className="w-full rounded-lg border-gray-700 bg-gray-800 shadow sm:max-w-md md:mt-0 xl:p-0">
-            <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
+            <div className="space-y-2 p-6 sm:p-8 md:space-y-6">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
                 Verify Your Email
               </h1>
               <form
                 method="GET"
-                className="space-y-4 md:space-y-6"
+                className="m-0 p-0"
                 onSubmit={handleSubmit}
                 id="verificationForm"
               >
                 <p className="text-sm text-white">
-                  Input the verification code sent to your email
+                  Enter the verification code sent to your email
                 </p>
-                <div className="my-3 flex items-center justify-center">
+                <div className="my-5 flex items-center justify-center">
                   <VerificationInput
                     length={6}
                     placeholder=""
@@ -82,11 +122,19 @@ const VerifyEmail: React.FC<{
                   <PrimaryButton type="submit" text="Verify Email" />
                 )}
               </form>
-              <p className="text-center text-sm text-indigo-500">
-                {timeLeft > 0
-                  ? timeLeft + " seconds left"
-                  : "Resend verification code"}
-              </p>
+
+              {timeLeft > 0 ? (
+                <p className="text-center text-sm text-indigo-500">
+                  {timeLeft + " seconds left"}
+                </p>
+              ) : (
+                <p
+                  className="text-center text-sm text-indigo-500"
+                  onClick={resendVerificationCode}
+                >
+                  Resend verification code
+                </p>
+              )}
             </div>
           </div>
         </div>
