@@ -28,6 +28,9 @@ const SignIn = () => {
 
     const login = new Login();
     login.attempt(credentials);
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
   };
   return (
     <div className="fixed left-0 right-0 top-0">
@@ -85,8 +88,7 @@ const SignIn = () => {
                         id="remember"
                         aria-describedby="remember"
                         type="checkbox"
-                        className="focus:ring-3 focus:ring-primary-300 focus:ring-primary-600 h-4 w-4 rounded border-gray-600 bg-gray-700 ring-offset-gray-800"
-                        required
+                        className="focus:ring-3 focus:ring-primary-600 h-4 w-4 rounded border-gray-600 bg-gray-700 ring-offset-gray-800"
                       />
                     </div>
                     <div className="ml-3 text-sm">

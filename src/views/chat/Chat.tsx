@@ -15,12 +15,12 @@ const Chat = () => {
           Welcome, <b>{userDetails.name}</b>
         </div> */}
         <ChatQuickAccess />
-        <div className="mt-10 mb-4">
-          <div className="grid grid-cols-2 mb-1">
+        <div className="mb-4 mt-10">
+          <div className="mb-1 grid grid-cols-2">
             <div
               className={
                 screen === "chats"
-                  ? `${styles} rounded-l-lg bg-gray-950 text-indigo-500 font-bold`
+                  ? `${styles} rounded-l-lg bg-gray-950 font-bold text-indigo-500`
                   : `${styles} rounded-l-lg`
               }
               onClick={() => setScreen("chats")}
@@ -30,7 +30,7 @@ const Chat = () => {
             <div
               className={
                 screen === "requests"
-                  ? `${styles} rounded-r-lg bg-gray-950 text-indigo-500 font-bold`
+                  ? `${styles} rounded-r-lg bg-gray-950 font-bold text-indigo-500`
                   : `${styles} rounded-r-lg`
               }
               onClick={() => setScreen("requests")}

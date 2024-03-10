@@ -4,5 +4,6 @@ export const Endpoints = {
   verify: "/users/verify",
   verifyToken: "/users/verify/token",
   me: "/users/me",
-  sendChatRequest: "/chats/request",
+  chats: "/chats",
+  receivedChatRequest: "/chats/requests",
 };

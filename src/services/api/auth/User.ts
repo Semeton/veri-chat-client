@@ -26,6 +26,7 @@ class User implements IRequest {
           window.location.reload();
         })
         .catch((e) => {
+          console.error(e);
           Alerts.error(e);
         });
     });

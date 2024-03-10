@@ -35,7 +35,6 @@ class Login implements ILogin, IRequest {
       this.Http.post(this.url, credentials)
         .then((res) => {
           LocalStorageStore.storeData({ token: res.token });
-          console.log(res);
           window.location.href = "/dashboard";
         })
         .catch((e) => {

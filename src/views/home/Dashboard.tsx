@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Structure from "../layout/Structure";
+import { token } from "../../lib/Token";
 import { userDetails } from "../../lib/UserDetails";
 import QuickAccess from "./components/QuickAccess";
 import RecentChats from "../chat/components/RecentChats";
@@ -14,6 +15,7 @@ const Dashboard = () => {
       let user = new User();
       user.getUser();
     }
+    console.log(token);
   });
 
   const styles = "bg-gray-800 p-3 border-2 border-gray-800";
@@ -24,12 +26,12 @@ const Dashboard = () => {
           Welcome, <b>{userDetails.name}</b>
         </div> */}
         <QuickAccess />
-        <div className="mt-10 mb-4">
-          <div className="grid grid-cols-2 mb-1">
+        <div className="mb-4 mt-10">
+          <div className="mb-1 grid grid-cols-2">
             <div
               className={
                 screen === "chats"
-                  ? `${styles} rounded-l-lg bg-gray-950 text-indigo-500 font-bold`
+                  ? `${styles} rounded-l-lg bg-gray-950 font-bold text-indigo-500`
                   : `${styles} rounded-l-lg`
               }
               onClick={() => setScreen("chats")}
@@ -39,7 +41,7 @@ const Dashboard = () => {
             <div
               className={
                 screen === "requests"
-                  ? `${styles} rounded-r-lg bg-gray-950 text-indigo-500 font-bold`
+                  ? `${styles} rounded-r-lg bg-gray-950 font-bold text-indigo-500`
                   : `${styles} rounded-r-lg`
               }
               onClick={() => setScreen("requests")}

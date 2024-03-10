@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Http from "../../services/handlers/Http";
 import { Endpoints } from "../../services/api/urls/Endpoints";
 import { baseUrl } from "../../services/api/urls/Links";
-// import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import VerificationInput from "react-verification-input";
@@ -18,7 +17,6 @@ const VerifyEmail: React.FC<{
   const [code, setCode] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [timeLeft, setTimeLeft] = useState<number>(20);
-  // const navigate = useNavigate();
   const http = new Http();
   const verifyCodeUrl = baseUrl + Endpoints.verify + `/${code}`;
   const resendVerifyCodeUrl = baseUrl + Endpoints.verifyToken + `/${email}`;
@@ -32,7 +30,6 @@ const VerifyEmail: React.FC<{
   }, [timeLeft]);
 
   const onHandleChange = (e: any) => {
-    // const { value } = e.target;
     setCode(e);
   };
 
@@ -47,7 +44,9 @@ const VerifyEmail: React.FC<{
           LocalStorageStore.storeData({ token: res.token });
         }
         Alerts.success(res.message);
-        setLoading(false);
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 2000);
       })
       .catch((e) => {
         console.log(e);

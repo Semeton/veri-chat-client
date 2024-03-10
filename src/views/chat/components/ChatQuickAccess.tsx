@@ -1,17 +1,23 @@
 import React, { useState } from "react";
+import Http from "../../../services/handlers/Http";
+import { baseUrl } from "../../../services/api/urls/Links";
+import { Endpoints } from "../../../services/api/urls/Endpoints";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../../components/Loader";
 import DefaultModal from "../../components/modals/DefaultModal";
-import Login from "../../../services/api/auth/Login";
 import LoadingButton from "../../components/buttons/LoadingButton";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
+import Alerts from "../../../util/alerts/Alerts";
 
 const ChatQuickAccess = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [sending, setSending] = useState<boolean>(false);
   const [formdata, setFormdata] = useState<{ email: string }>({ email: "" });
+  const http = new Http();
+  const sendChatRequestUrl = baseUrl + Endpoints.receivedChatRequest;
   const navigate = useNavigate();
 
   const onHandleChange = (e: any) => {
@@ -20,22 +26,28 @@ const ChatQuickAccess = () => {
   };
 
   const handleSubmit = (e: any) => {
-    setLoading(true);
+    setSending(true);
     e.preventDefault();
-    setTimeout(() => {
-      const credentials: FormData = new FormData();
-      credentials.append("email", formdata.email);
+    const data: FormData = new FormData();
+    data.append("recipient_email", formdata.email);
 
-      const login = new Login();
-      login.attempt(credentials);
-      setLoading(false);
-    }, 4000);
+    http
+      .post(sendChatRequestUrl, data)
+      .then((res) => {
+        console.log(res);
+        Alerts.success("Chat request sent successfully");
+        setSending(false);
+      })
+      .catch((e) => {
+        console.error(e);
+        let message = e.response?.data?.message ?? e.message;
+        Alerts.error(message);
+        setSending(false);
+      });
   };
+
   const sentRequest = () => {
-    setLoading(true);
-    setTimeout(() => {
-      navigate("/sent-requests");
-    }, 1000);
+    navigate("/sent-requests");
   };
 
   const styles =
@@ -63,15 +75,15 @@ const ChatQuickAccess = () => {
           type="email"
           name="email"
           id="email"
-          className="sm:text-sm rounded-lg border border-indigo-600 ring-primary-600 focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-500 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+          className="ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-indigo-600 bg-gray-500 p-2.5 text-white placeholder-gray-400 focus:ring-blue-500 sm:text-sm"
           placeholder="email"
           value={formdata.email}
           onChange={onHandleChange}
           required
         />
       </div>
-      {loading ? (
-        <LoadingButton type="button" text="Processing..." />
+      {sending ? (
+        <LoadingButton type="button" text="Sending..." />
       ) : (
         <PrimaryButton type="submit" text="Send Request" />
       )}
@@ -81,7 +93,7 @@ const ChatQuickAccess = () => {
   return (
     <>
       {loading && <Loader />}
-      <div className="mt-3 mb-5">
+      <div className="mb-5 mt-3">
         <div className="grid grid-cols-3 gap-3">
           <DefaultModal element={newChat} title={title} body={body} />
           <div className={styles} onClick={sentRequest}>

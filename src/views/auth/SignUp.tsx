@@ -1,27 +1,116 @@
 import React, { useState } from "react";
+import { Endpoints } from "../../services/api/urls/Endpoints";
+import { baseUrl } from "../../services/api/urls/Links";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import VerifyEmail from "./VerifyEmail";
+import LoadingButton from "../components/buttons/LoadingButton";
+import DisabledButton from "../components/buttons/DisabledButton";
+import PrimaryButton from "../components/buttons/PrimaryButton";
+import Http from "../../services/handlers/Http";
+import Alerts from "../../util/alerts/Alerts";
 
 const SignUp = () => {
   const [formdata, setFormdata] = useState<{
     name: string;
     email: string;
     password: string;
-    cpassword: string;
-  }>({ name: "", email: "", password: "", cpassword: "" });
+    password_confirmation: string;
+    terms: string;
+  }>({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+    terms: "",
+  });
+  const [errors, setErrors] = useState<{
+    name: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+    terms: string;
+  }>({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+    terms: "",
+  });
   const [verify, setVerify] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<Boolean>(false);
+  const http = new Http();
+  const registerUrl = baseUrl + Endpoints.register;
 
   const onHandleChange = (e: any) => {
     const { name, value } = e.target;
+    validateInput(name, value);
     setFormdata({ ...formdata, [name]: value });
+  };
+
+  const validateInput = (name: string, value: string) => {
+    if (value === "") {
+      let err = name
+        .split("_")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .join(" ");
+      setErrors({ ...errors, [name]: err + " cannot be empty" });
+    } else if (
+      name === "email" &&
+      !value.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)
+    ) {
+      setErrors({
+        ...errors,
+        [name]: "Please enter a valid email address",
+      });
+    } else if (name === "password" && value.length < 8) {
+      setErrors({
+        ...errors,
+        [name]: "Password must be at least 8 characters",
+      });
+    } else if (
+      name === "password_confirmation" &&
+      value !== formdata.password
+    ) {
+      setErrors({
+        ...errors,
+        [name]: "Password confirmation must match password",
+      });
+    } else {
+      setErrors({ ...errors, [name]: "" });
+    }
   };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log("clicked");
-    setVerify(true);
+    if (formdata.terms === "") {
+      setErrors({
+        ...errors,
+        terms: "Terms must be accepted",
+      });
+      return;
+    }
+    setLoading(true);
+
+    const data: FormData = new FormData();
+    data.append("name", formdata.name);
+    data.append("email", formdata.email);
+    data.append("password", formdata.password);
+    data.append("password_confirmation", formdata.password);
+    data.append("terms", "accepted");
+
+    http
+      .post(registerUrl, data)
+      .then((res) => {
+        setVerify(true);
+      })
+      .catch((e) => {
+        console.log(e);
+        let message = e.response?.data?.message ?? e.message;
+        Alerts.error(message);
+        setLoading(false);
+      });
   };
 
   if (verify) {
@@ -59,6 +148,7 @@ const SignUp = () => {
                     onChange={onHandleChange}
                     required
                   />
+                  <p className="mt-1 text-xs text-red-300">{errors.name}</p>
                 </div>
                 <div>
                   <input
@@ -71,6 +161,7 @@ const SignUp = () => {
                     onChange={onHandleChange}
                     required
                   />
+                  <p className="mt-1 text-xs text-red-300">{errors.email}</p>
                 </div>
                 <div>
                   <input
@@ -83,25 +174,59 @@ const SignUp = () => {
                     onChange={onHandleChange}
                     required
                   />
+                  <p className="mt-1 text-xs text-red-300">{errors.password}</p>
                 </div>
                 <div>
                   <input
                     type="password"
-                    name="cpassword"
-                    id="cpassword"
+                    name="password_confirmation"
+                    id="password_confirmation"
                     placeholder="confirm password"
-                    className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-300 border-gray-600 bg-gray-700 p-2.5 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                    value={formdata.cpassword}
+                    className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-600 bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
+                    value={formdata.password_confirmation}
                     onChange={onHandleChange}
                     required
                   />
+                  <p className="mt-1 text-xs text-red-300">
+                    {errors.password_confirmation}
+                  </p>
                 </div>
-                <button
-                  type="submit"
-                  className="w-full rounded-lg bg-indigo-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-800"
-                >
-                  Sign up
-                </button>
+                <div className="flex items-start">
+                  <div className="flex h-5 items-center">
+                    <input
+                      id="remember"
+                      aria-describedby="remember"
+                      type="checkbox"
+                      className="focus:ring-3 focus:ring-primary-600 h-4 w-4 rounded border-gray-600 bg-gray-700 ring-offset-gray-800"
+                      value={formdata.terms}
+                      onChange={(e: any) => {
+                        setFormdata({ ...formdata, terms: "accepted" });
+                      }}
+                      required
+                    />
+                  </div>
+                  <div className="ml-3 text-sm">
+                    <label className="text-gray-300">
+                      Accept{" "}
+                      <a
+                        href="https://verivault.xyz"
+                        className="text-indigo-500"
+                      >
+                        Privacy Policy
+                      </a>
+                    </label>
+                  </div>
+                </div>
+                {loading ? (
+                  <LoadingButton type="button" text="Processing..." />
+                ) : errors.name.length > 0 ||
+                  errors.email.length > 0 ||
+                  errors.password.length > 0 ||
+                  errors.password_confirmation.length > 0 ? (
+                  <DisabledButton text="Fill all inputs correctly" />
+                ) : (
+                  <PrimaryButton type="submit" text="Register" />
+                )}
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Have an account?{" "}
                   <Link

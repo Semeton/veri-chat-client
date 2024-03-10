@@ -1,124 +1,109 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Http from "../../../services/handlers/Http";
+import { baseUrl } from "../../../services/api/urls/Links";
+import { Endpoints } from "../../../services/api/urls/Endpoints";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../../components/Loader";
+import Alerts from "../../../util/alerts/Alerts";
+import BarLoader from "../../components/BarLoader";
 
 const SentChatRequests: React.FC = () => {
-  const [loading, setLoading] = useState(false);
+  const [chatsRequest, setChatsRequest] = useState<Array<object>>([]);
+  const [loading, setLoading] = useState<Boolean>(false);
+  const http = new Http();
+  const chatUrl = baseUrl + Endpoints.receivedChatRequest;
 
   const navigate = useNavigate();
 
-  const goBack = () => {
+  useEffect(
+    () => {
+      getChatsRequest();
+    },
+    // eslint-disable-next-line
+    [],
+  );
+
+  const getChatsRequest = () => {
     setLoading(true);
-    setTimeout(() => {
-      navigate("/chats");
-    }, 1000);
+    http
+      .get(chatUrl)
+      .then((res) => {
+        console.log(res);
+        if (res.sent) setChatsRequest(res.sent);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.error(e);
+        let message = e.response?.data?.message ?? e.message;
+        Alerts.error(message);
+        setLoading(false);
+      });
+  };
+
+  const goBack = () => {
+    navigate("/chats");
   };
 
   const styles: string =
     "flex bg-gray-800 p-3 rounded-md border border-gray-600 items-center justify-between mb-3";
   return (
-    <div className="fixed right-0 left-0 bottom-0 top-0">
-      {loading && <Loader />}
-      <div className="flex flex-col h-screen justify-between bg-gray-900 text-white">
+    <div className="fixed bottom-0 left-0 right-0 top-0">
+      {/* {loading && <Loader />} */}
+      <div className="flex h-screen flex-col justify-between bg-gray-900 text-white">
         <main className="mb-auto p-4 px-5">
-          <div className="grid grid-cols-3 justify-between text-white items-center mb-5 mt-2">
+          <div className="mb-5 mt-2 grid grid-cols-3 items-center justify-between text-white">
             <div onClick={goBack} className={"cursor-pointer"}>
               <FontAwesomeIcon icon={faArrowLeftLong} />
             </div>
             <div className="col-span-2">
-              <h1 className="text-lg font-bold leading-tight tracking-tight md:text-2xl text-white">
+              <h1 className="text-lg font-bold leading-tight tracking-tight text-white md:text-2xl">
                 Sent Requests
               </h1>
             </div>
           </div>
-          <div className="mt-3 overflow-y-scroll">
-            <div className="grid">
-              <div className={styles}>
-                <div className="flex items-center">
-                  <FontAwesomeIcon
-                    icon={faUserSecret}
-                    size="2xl"
-                    className="mr-3"
-                  />
-                  <div className="mr-2">
-                    <p>Balogun Semeton</p>
-                    <p className="text-sm text-indigo-500">New Request</p>
-                  </div>
-                </div>
-                <div className="mr-2">
-                  <FontAwesomeIcon icon={faEllipsisVertical} />
-                </div>
+          {loading ? (
+            <BarLoader />
+          ) : chatsRequest.length === 0 ? (
+            <div className="mt-10 h-full text-center text-white">
+              <div className="mb-3 mt-7 text-indigo-500">
+                <FontAwesomeIcon
+                  icon={faUserSecret}
+                  size="2xl"
+                  style={{ fontSize: "100px" }}
+                  className=""
+                />
               </div>
-              <div className={styles}>
-                <div className="flex items-center">
-                  <FontAwesomeIcon
-                    icon={faUserSecret}
-                    size="2xl"
-                    className="mr-3"
-                  />
-                  <div className="mr-2">
-                    <p>Semeton James</p>
-                    <p className="text-sm text-indigo-500">New Request</p>
-                  </div>
-                </div>
-                <div className="mr-2">
-                  <FontAwesomeIcon icon={faEllipsisVertical} />
-                </div>
-              </div>
-              <div className={styles}>
-                <div className="flex items-center">
-                  <FontAwesomeIcon
-                    icon={faUserSecret}
-                    size="2xl"
-                    className="mr-3"
-                  />
-                  <div className="mr-2">
-                    <p>Balogun James</p>
-                    <p className="text-sm text-green-500">Accepted</p>
-                  </div>
-                </div>
-                <div className="mr-2">
-                  <FontAwesomeIcon icon={faEllipsisVertical} />
-                </div>
-              </div>
-              <div className={styles}>
-                <div className="flex items-center">
-                  <FontAwesomeIcon
-                    icon={faUserSecret}
-                    size="2xl"
-                    className="mr-3"
-                  />
-                  <div className="mr-2">
-                    <p>Jimoh Gbesi</p>
-                    <p className="text-sm text-green-500">Accepted</p>
-                  </div>
-                </div>
-                <div className="mr-2">
-                  <FontAwesomeIcon icon={faEllipsisVertical} />
-                </div>
-              </div>
-              <div className={styles}>
-                <div className="flex items-center">
-                  <FontAwesomeIcon
-                    icon={faUserSecret}
-                    size="2xl"
-                    className="mr-3"
-                  />
-                  <div className="mr-2">
-                    <p>Jimoh James</p>
-                    <p className="text-sm text-red-500">Rejected</p>
-                  </div>
-                </div>
-                <div className="mr-2">
-                  <FontAwesomeIcon icon={faEllipsisVertical} />
-                </div>
-              </div>
+              <h3 className="text-2xl font-bold">Ooops!</h3>
+              <p className="">
+                You do not have any sent chat requests at this time
+              </p>
             </div>
-          </div>
+          ) : (
+            <div className="grid">
+              {chatsRequest.map((request) => (
+                <div className={styles}>
+                  <div className="flex items-center">
+                    <FontAwesomeIcon
+                      icon={faUserSecret}
+                      size="2xl"
+                      className="mr-3"
+                    />
+                    <div className="mr-2">
+                      <p>{(request as any).recipient_email[0].name}</p>
+                      <p className="text-sm text-indigo-500">New Request</p>
+                    </div>
+                  </div>
+                  <div className="mr-2">
+                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </main>
       </div>
     </div>

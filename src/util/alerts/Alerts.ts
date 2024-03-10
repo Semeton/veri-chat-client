@@ -1,21 +1,37 @@
 import Swal from "sweetalert2";
 
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  },
+});
+// Toast.fire({
+//   icon: "success",
+//   title: "Signed in successfully"
+// });
+
 const Alerts = {
   success: (message: string) => {
-    Swal.fire({
-      text: message,
+    Toast.fire({
+      title: message,
       icon: "success",
-      confirmButtonColor: "#1437E9"
+      // confirmButtonColor: "rgb(79 70 229)",
     });
   },
 
   error: (message: string) => {
-    Swal.fire({
-      text: message,
+    Toast.fire({
+      title: message,
       icon: "error",
-      confirmButtonColor: "#1437E9"
+      // confirmButtonColor: "rgb(79 70 229)",
     });
-  }
+  },
 };
 
 export default Alerts;
