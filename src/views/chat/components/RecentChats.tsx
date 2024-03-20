@@ -60,86 +60,24 @@ const RecentChats: React.FC = () => {
         </div>
       ) : (
         <div className="grid">
-          <div className={styles}>
-            <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faUserSecret}
-                size="2xl"
-                className="mr-3"
-              />
+          {chats.map((chat) => (
+            <div className={styles}>
+              <div className="flex items-center">
+                <FontAwesomeIcon
+                  icon={faUserSecret}
+                  size="2xl"
+                  className="mr-3"
+                />
+                <div className="mr-2">
+                  <p>{(chat as any).sender_email[0].name}</p>
+                  <p className="text-sm text-indigo-500">New Request</p>
+                </div>
+              </div>
               <div className="mr-2">
-                <p>Balogun Semeton</p>
-                <p className="text-sm text-indigo-500">New Encrypted Message</p>
+                <FontAwesomeIcon icon={faEllipsisVertical} />
               </div>
             </div>
-            <div className="mr-2">
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-            </div>
-          </div>
-          <div className={styles}>
-            <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faUserSecret}
-                size="2xl"
-                className="mr-3"
-              />
-              <div className="mr-2">
-                <p>James Semeton</p>
-                <p className="text-sm text-indigo-500">New Encrypted Message</p>
-              </div>
-            </div>
-            <div className="mr-2">
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-            </div>
-          </div>
-          <div className={styles}>
-            <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faUserSecret}
-                size="2xl"
-                className="mr-3"
-              />
-              <div className="mr-2">
-                <p>James Semeton</p>
-                <p className="text-sm">Encrypted Message</p>
-              </div>
-            </div>
-            <div className="mr-2">
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-            </div>
-          </div>
-          <div className={styles}>
-            <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faUserSecret}
-                size="2xl"
-                className="mr-3"
-              />
-              <div className="mr-2">
-                <p>Jimoh Gbesi</p>
-                <p className="text-sm text-indigo-500">New Encrypted Message</p>
-              </div>
-            </div>
-            <div className="mr-2">
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-            </div>
-          </div>
-          <div className={styles}>
-            <div className="flex items-center">
-              <FontAwesomeIcon
-                icon={faUserSecret}
-                size="2xl"
-                className="mr-3"
-              />
-              <div className="mr-2">
-                <p>Jimoh James</p>
-                <p className="text-sm">Encrypted Message</p>
-              </div>
-            </div>
-            <div className="mr-2">
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-            </div>
-          </div>
+          ))}
         </div>
       )}
     </div>
