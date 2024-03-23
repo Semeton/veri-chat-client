@@ -98,12 +98,23 @@ const SentChatRequests: React.FC = () => {
                       <p className="text-sm text-indigo-500">New Request</p>
                     </div>
                   </div>
-                  <div className="mr-2">
-                    <FontAwesomeIcon
-                      className="text-red-500"
+                  <div className="mr-2 uppercase">
+                    {(request as any).status === 0 && (
+                      <span className="p-2 text-xs text-red-500">PENDING</span>
+                    )}
+                    {(request as any).status === 1 && (
+                      <span className="p-2 text-xs text-green-500">
+                        ACCEPTED
+                      </span>
+                    )}
+                    {(request as any).status === 2 && (
+                      <span className="p-2 text-xs text-red-500">REJECTED</span>
+                    )}
+                    {/* <FontAwesomeIcon
+                      className="ml-3 text-red-500"
                       size="lg"
                       icon={faTimesCircle}
-                    />
+                    /> */}
                   </div>
                 </div>
               ))}

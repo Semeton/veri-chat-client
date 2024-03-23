@@ -16,7 +16,9 @@ const ChatRequests: React.FC = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const http = new Http();
   const chatUrl = baseUrl + Endpoints.receivedChatRequest;
-  const acceptUrl = useEffect(
+  const acceptUrl = baseUrl + Endpoints.acceptRequest;
+
+  useEffect(
     () => {
       getChatsRequest();
     },
@@ -53,7 +55,6 @@ const ChatRequests: React.FC = () => {
         console.error(e);
         let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
-        setLoading(false);
       });
   };
 

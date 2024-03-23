@@ -98,6 +98,7 @@ const SignIn = () => {
                   <a
                     href="/forgot-password"
                     className="text-sm font-medium text-indigo-500 hover:underline"
+                    hidden
                   >
                     Forgot password?
                   </a>
