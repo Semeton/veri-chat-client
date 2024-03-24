@@ -3,8 +3,11 @@ import Http from "../../../services/handlers/Http";
 import { baseUrl } from "../../../services/api/urls/Links";
 import { Endpoints } from "../../../services/api/urls/Endpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserSecret,
+  faCheckCircle,
+  faTimesCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import Alerts from "../../../util/alerts/Alerts";
 import BarLoader from "../../components/BarLoader";
 
@@ -13,8 +16,7 @@ const ChatRequests: React.FC = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const http = new Http();
   const chatUrl = baseUrl + Endpoints.receivedChatRequest;
-
-  useEffect(
+  const acceptUrl = useEffect(
     () => {
       getChatsRequest();
     },
@@ -24,6 +26,22 @@ const ChatRequests: React.FC = () => {
 
   const getChatsRequest = () => {
     setLoading(true);
+    http
+      .get(chatUrl)
+      .then((res) => {
+        console.log(res);
+        if (res.received) setChatsRequest(res.received);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.error(e);
+        let message = e.response?.data?.message ?? e.message;
+        Alerts.error(message);
+        setLoading(false);
+      });
+  };
+
+  const acceptRequest = (uuid: string) => {
     http
       .get(chatUrl)
       .then((res) => {
@@ -74,7 +92,16 @@ const ChatRequests: React.FC = () => {
                 </div>
               </div>
               <div className="mr-2">
-                <FontAwesomeIcon icon={faEllipsisVertical} />
+                <FontAwesomeIcon
+                  className="mr-3 text-green-500"
+                  size="lg"
+                  icon={faCheckCircle}
+                />
+                <FontAwesomeIcon
+                  className="text-red-500"
+                  size="lg"
+                  icon={faTimesCircle}
+                />
               </div>
             </div>
           ))}

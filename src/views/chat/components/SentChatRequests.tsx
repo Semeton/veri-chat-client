@@ -4,9 +4,11 @@ import { baseUrl } from "../../../services/api/urls/Links";
 import { Endpoints } from "../../../services/api/urls/Endpoints";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserSecret,
+  faTimesCircle,
+  faArrowLeftLong,
+} from "@fortawesome/free-solid-svg-icons";
 import Alerts from "../../../util/alerts/Alerts";
 import BarLoader from "../../components/BarLoader";
 
@@ -97,7 +99,11 @@ const SentChatRequests: React.FC = () => {
                     </div>
                   </div>
                   <div className="mr-2">
-                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                    <FontAwesomeIcon
+                      className="text-red-500"
+                      size="lg"
+                      icon={faTimesCircle}
+                    />
                   </div>
                 </div>
               ))}
