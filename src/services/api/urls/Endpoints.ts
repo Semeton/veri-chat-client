@@ -5,6 +5,7 @@ export const Endpoints = {
   verifyToken: "/users/verify/token",
   me: "/users/me",
   chats: "/chats",
+  chatSecret: "/chats/secret/",
   receivedChatRequest: "/chats/requests",
   acceptRequest: "/chats/requests/accept/",
 };

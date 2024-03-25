@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserSecret,
-  faTimesCircle,
   faArrowLeftLong,
 } from "@fortawesome/free-solid-svg-icons";
 import Alerts from "../../../util/alerts/Alerts";

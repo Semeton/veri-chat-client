@@ -40,7 +40,14 @@ class User implements IRequest {
 
   static logout(): void {
     handleException(() => {
-      const authData: string[] = ["token", "user"];
+      const authData: string[] = [
+        "token",
+        "user",
+        // "chats",
+        // "requests",
+        // "sentRequests",
+        // "sentEmails",
+      ];
       authData.forEach((value) => {
         LocalStorageStore.deleteValue(value);
       });

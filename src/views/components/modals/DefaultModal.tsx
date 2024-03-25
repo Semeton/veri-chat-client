@@ -4,8 +4,9 @@ const DefaultModal: React.FC<{
   element: React.ReactNode;
   title: string;
   body: React.ReactNode;
-}> = ({ element, title, body }) => {
-  const [display, setDisplay] = useState(false);
+  property?: boolean;
+}> = ({ element, title, body, property = false }) => {
+  const [display, setDisplay] = useState(property);
 
   const showModal = () => {
     setDisplay(true);
@@ -21,6 +22,7 @@ const DefaultModal: React.FC<{
         data-modal-target="modal"
         data-modal-toggle="modal"
         onClick={showModal}
+        hidden={property}
       >
         {element}
       </div>
@@ -29,20 +31,20 @@ const DefaultModal: React.FC<{
           id="modal"
           tabIndex={-1}
           aria-hidden="true"
-          className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+          className="fixed left-0 right-0 top-0 z-50 h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0"
         >
-          <div className="relative p-4 w-full max-w-md max-h-full">
-            <div className="relative rounded-lg shadow bg-gray-700">
-              <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+          <div className="relative max-h-full w-full max-w-md p-4">
+            <div className="relative rounded-lg bg-gray-700 shadow">
+              <div className="flex items-center justify-between rounded-t border-b border-gray-600 p-4 md:p-5">
                 <h3 className="text-xl font-semibold text-white">{title}</h3>
                 <button
                   type="button"
-                  className="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
+                  className="end-2.5 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-600 hover:text-white"
                   data-modal-hide="authentication-modal"
                   onClick={closeModal}
                 >
                   <svg
-                    className="w-3 h-3"
+                    className="h-3 w-3"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

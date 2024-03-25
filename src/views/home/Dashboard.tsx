@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Structure from "../layout/Structure";
-import { token } from "../../lib/Token";
 import { userDetails } from "../../lib/UserDetails";
 import QuickAccess from "./components/QuickAccess";
 import RecentChats from "../chat/components/RecentChats";
@@ -15,7 +14,6 @@ const Dashboard = () => {
       let user = new User();
       user.getUser();
     }
-    console.log(token);
   });
 
   const styles = "bg-gray-800 p-3 border-2 border-gray-800";

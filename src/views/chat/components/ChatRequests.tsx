@@ -44,12 +44,12 @@ const ChatRequests: React.FC = () => {
   };
 
   const acceptRequest = (uuid: string) => {
+    // alert("Chat id: " + uuid);
     http
-      .get(chatUrl)
+      .get(acceptUrl + uuid)
       .then((res) => {
         console.log(res);
-        if (res.received) setChatsRequest(res.received);
-        setLoading(false);
+        Alerts.success(res.message);
       })
       .catch((e) => {
         console.error(e);
@@ -94,7 +94,8 @@ const ChatRequests: React.FC = () => {
               </div>
               <div className="mr-2">
                 <FontAwesomeIcon
-                  className="mr-3 text-green-500"
+                  onClick={() => acceptRequest((request as any).uuid)}
+                  className="mr-4 text-green-500"
                   size="lg"
                   icon={faCheckCircle}
                 />
