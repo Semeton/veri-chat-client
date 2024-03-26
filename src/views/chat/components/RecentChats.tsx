@@ -48,11 +48,16 @@ const RecentChats: React.FC = () => {
       setChatSecret(uuid);
     }
 
+    let secret: string | null = prompt("Enter chat secret keys:", "");
+    if (secret === null) {
+      alert("Canceled! Secret was not enter.");
+      return;
+    }
     console.log("Opened chat: ", uuid);
   };
 
   const setChatSecret = (uuid: string) => {
-    let secret: string | null = prompt("Enter secret keys:", "");
+    let secret: string | null = prompt("Enter chatsecret keys:", "");
     if (secret === null) {
       alert("Canceled! Secret was not set.");
       return;
