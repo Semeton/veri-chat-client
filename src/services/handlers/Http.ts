@@ -1,12 +1,19 @@
 import { token } from "../../lib/Token";
-
 import axios from "axios";
 
 class Http {
+  private static instance: Http | null = null;
   private token: string;
 
-  constructor() {
+  private constructor() {
     this.token = token;
+  }
+
+  public static getInstance(): Http {
+    if (!Http.instance) {
+      Http.instance = new Http();
+    }
+    return Http.instance;
   }
 
   async get(url: string = ""): Promise<any> {
@@ -14,8 +21,8 @@ class Http {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + this.token
-      }
+        Authorization: "Bearer " + this.token,
+      },
     };
 
     const response = await axios.get(url, config);
@@ -27,29 +34,14 @@ class Http {
     const config = {
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + this.token
-      }
+        Authorization: "Bearer " + this.token,
+      },
     };
 
     const response = await axios.post(url, data, config);
 
     return response.data;
   }
-
-  // async post(url: string, data: any): Promise<any> {
-  //   const myHeaders = new Headers();
-  //   myHeaders.append("Accept", "application/json");
-  //   myHeaders.append("Authorization", "Bearer " + this.token);
-
-  //   const response = await fetch(url, {
-  //     method: "POST",
-  //     headers: myHeaders,
-  //     redirect: "follow",
-  //     body: data
-  //   });
-
-  //   return response.json();
-  // }
 }
 
 export default Http;
