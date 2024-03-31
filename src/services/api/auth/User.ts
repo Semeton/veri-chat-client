@@ -11,7 +11,7 @@ class User implements IRequest {
   public url: string;
 
   constructor() {
-    this.Http = new Http();
+    this.Http = Http.getInstance();
     this.url = baseUrl + Endpoints.me;
   }
 

@@ -20,7 +20,7 @@ class Login implements ILogin, IRequest {
   public user: User;
 
   constructor() {
-    this.Http = new Http();
+    this.Http = Http.getInstance();
     this.user = new User();
     this.url = baseUrl + Endpoints.login;
   }
@@ -35,10 +35,6 @@ class Login implements ILogin, IRequest {
       this.Http.post(this.url, credentials)
         .then((res) => {
           LocalStorageStore.storeData({ token: res.token });
-          // LocalStorageStore.storeData({ chats: [] });
-          // LocalStorageStore.storeData({ requests: [] });
-          // LocalStorageStore.storeData({ sentRequests: [] });
-          // LocalStorageStore.storeData({ sentEmails: [] });
           window.location.href = "/dashboard";
         })
         .catch((e) => {

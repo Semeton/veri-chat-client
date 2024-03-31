@@ -17,6 +17,7 @@ import Profile from "../views/profile/Profile";
 import Notification from "../views/notification/Notification";
 import Settings from "../views/settings/Settings";
 import Privacy from "../views/privacy/Privacy";
+import ChatView from "../views/chat/components/ChatView";
 
 const Router = (): JSX.Element => {
   return (
@@ -61,6 +62,9 @@ const Router = (): JSX.Element => {
         </Route>
         <Route path="/privacy" element={<AuthRoute />}>
           <Route path="/privacy" element={<Privacy />} />
+        </Route>
+        <Route path="/chatview/:id" element={<AuthRoute />}>
+          <Route path="/chatview/:id/:secret" element={<ChatView />} />
         </Route>
       </Routes>
     </BrowserRouter>

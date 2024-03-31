@@ -14,7 +14,7 @@ import BarLoader from "../../components/BarLoader";
 const ChatRequests: React.FC = () => {
   const [chatsRequest, setChatsRequest] = useState<Array<object>>([]);
   const [loading, setLoading] = useState<Boolean>(false);
-  const http = new Http();
+  const http = Http.getInstance();
   const chatUrl = baseUrl + Endpoints.receivedChatRequest;
   const acceptUrl = baseUrl + Endpoints.acceptRequest;
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Http from "../../../services/handlers/Http";
 import { baseUrl } from "../../../services/api/urls/Links";
 import { Endpoints } from "../../../services/api/urls/Endpoints";
@@ -10,9 +11,11 @@ import BarLoader from "../../components/BarLoader";
 const RecentChats: React.FC = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [chats, setChats] = useState([]);
-  const http = new Http();
+  const http = Http.getInstance();
   const chatUrl = baseUrl + Endpoints.chats;
   const chatSecretUrl = baseUrl + Endpoints.chatSecret;
+
+  const navigate = useNavigate();
 
   useEffect(
     () => {
@@ -46,14 +49,14 @@ const RecentChats: React.FC = () => {
     if (lock === null) {
       alert("You need to set a chat secret for this chat first");
       setChatSecret(uuid);
+    } else {
+      let secret: string | null = prompt("Enter chat secret keys:", "");
+      if (secret === null) {
+        alert("Canceled! No key entered.");
+        return;
+      }
+      navigate("/chatview/" + uuid + "/" + secret);
     }
-
-    let secret: string | null = prompt("Enter chat secret keys:", "");
-    if (secret === null) {
-      alert("Canceled! Secret was not enter.");
-      return;
-    }
-    console.log("Opened chat: ", uuid);
   };
 
   const setChatSecret = (uuid: string) => {
@@ -108,7 +111,7 @@ const RecentChats: React.FC = () => {
   };
 
   return (
-    <div className="">
+    <div className="min-h-72">
       {loading ? (
         <BarLoader />
       ) : chats.length === 0 ? (

@@ -40,7 +40,7 @@ const SignUp = () => {
   });
   const [verify, setVerify] = useState<Boolean>(false);
   const [loading, setLoading] = useState<Boolean>(false);
-  const http = new Http();
+  const http = Http.getInstance();
   const registerUrl = baseUrl + Endpoints.register;
 
   const onHandleChange = (e: any) => {
@@ -103,7 +103,10 @@ const SignUp = () => {
     http
       .post(registerUrl, data)
       .then((res) => {
-        setVerify(true);
+        Alerts.success(res.message);
+        setTimeout(() => {
+          setVerify(true);
+        }, 2000);
       })
       .catch((e) => {
         console.log(e);

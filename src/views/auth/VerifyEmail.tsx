@@ -17,7 +17,7 @@ const VerifyEmail: React.FC<{
   const [code, setCode] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [timeLeft, setTimeLeft] = useState<number>(20);
-  const http = new Http();
+  const http = Http.getInstance();
   const verifyCodeUrl = baseUrl + Endpoints.verify + `/${code}`;
   const resendVerifyCodeUrl = baseUrl + Endpoints.verifyToken + `/${email}`;
 

@@ -6,17 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import Loader from "../../components/Loader";
+// import Loader from "../../components/Loader";
 import DefaultModal from "../../components/modals/DefaultModal";
 import LoadingButton from "../../components/buttons/LoadingButton";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import Alerts from "../../../util/alerts/Alerts";
 
 const ChatQuickAccess = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [sending, setSending] = useState<boolean>(false);
   const [formdata, setFormdata] = useState<{ email: string }>({ email: "" });
-  const http = new Http();
+  const http = Http.getInstance();
   const sendChatRequestUrl = baseUrl + Endpoints.receivedChatRequest;
   const navigate = useNavigate();
 
@@ -92,7 +92,7 @@ const ChatQuickAccess = () => {
 
   return (
     <>
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
       <div className="mb-5 mt-3">
         <div className="grid grid-cols-3 gap-3">
           <DefaultModal element={newChat} title={title} body={body} />
