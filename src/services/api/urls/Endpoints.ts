@@ -14,5 +14,6 @@ export const Endpoints = {
   sendEmail: "/emails",
   encryptText: "/documents",
   updateEncrypText: "/documents/",
+  deleteEncrypText: "/documents/delete/",
   decryptText: "/documents/decrypt/",
 };

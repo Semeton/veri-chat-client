@@ -21,7 +21,7 @@ const Vault = () => {
   });
 
   const http = Http.getInstance();
-  const emailUrl = baseUrl + Endpoints.encryptText;
+  const encryptTextUrl = baseUrl + Endpoints.encryptText;
 
   const onHandleChange = (e: any) => {
     const { name, value } = e.target;
@@ -32,15 +32,16 @@ const Vault = () => {
     setLoading(true);
     e.preventDefault();
     const formData: FormData = new FormData();
-    formData.append("subject", formdata.title);
+    formData.append("title", formdata.title);
     formData.append("body", formdata.body);
     formData.append("secret", formdata.secret);
+    formData.append("persist", "true");
 
     http
-      .post(emailUrl, formData)
+      .post(encryptTextUrl, formData)
       .then((res) => {
-        console.log(res);
         Alerts.success(res.message);
+        setFormdata({ ...formdata, title: "", body: "", secret: "" });
         setLoading(false);
       })
       .catch((e) => {
@@ -57,7 +58,7 @@ const Vault = () => {
       <div className="mt-10 text-white w-full rounded-lg shadow bg-gray-800 border-gray-700">
         <div className="p-4 space-y-4">
           <h1 className="text-xl font-bold leading-tight tracking-tight text-white">
-            Encrypt text
+            Encrypt Text
           </h1>
           <form
             method="POST"
@@ -66,10 +67,10 @@ const Vault = () => {
           >
             <div>
               <input
-                type="subject"
-                name="subject"
-                id="subject"
-                className="border-gray-300 sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
+                type="text"
+                name="title"
+                id="title"
+                className="sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
                 placeholder="subject"
                 value={formdata.title}
                 onChange={onHandleChange}
@@ -80,21 +81,20 @@ const Vault = () => {
               <textarea
                 name="body"
                 id="emailBody"
-                className="border-gray-300 sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
+                className="sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
                 cols={30}
                 rows={7}
+                value={formdata.body}
                 onChange={onHandleChange}
                 required
-              >
-                {formdata.body}
-              </textarea>
+              />
             </div>
             <div>
               <input
-                type="secret"
+                type="password"
                 name="secret"
                 id="secret"
-                className="border-gray-300 sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
+                className="sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
                 placeholder="secret"
                 value={formdata.secret}
                 onChange={onHandleChange}

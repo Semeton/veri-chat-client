@@ -95,21 +95,20 @@ const Email = () => {
               <textarea
                 name="body"
                 id="emailBody"
-                className="border-gray-300 sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
+                className="sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
                 cols={30}
                 rows={7}
+                value={formdata.body}
                 onChange={onHandleChange}
                 required
-              >
-                {formdata.body}
-              </textarea>
+              />
             </div>
             <div>
               <input
-                type="secret"
+                type="password"
                 name="secret"
                 id="secret"
-                className="border-gray-300 sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
+                className="sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
                 placeholder="secret"
                 value={formdata.secret}
                 onChange={onHandleChange}
