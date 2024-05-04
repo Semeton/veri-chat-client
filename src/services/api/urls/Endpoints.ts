@@ -11,4 +11,8 @@ export const Endpoints = {
   acceptRequest: "/chats/requests/accept/",
   chatMessages: "/chats/messages/",
   sendMessage: "/chats/messages/",
+  sendEmail: "/emails",
+  encryptText: "/documents",
+  updateEncrypText: "/documents/",
+  decryptText: "/documents/decrypt/",
 };

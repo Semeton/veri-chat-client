@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import Login from "../../services/api/auth/Login";
 import LoadingButton from "../components/buttons/LoadingButton";
 import PrimaryButton from "../components/buttons/PrimaryButton";
 import Structure from "../layout/Structure";
 import EmailQuickAccess from "./components/EmailQuickAccess";
+import Http from "../../services/handlers/Http";
+import { baseUrl } from "../../services/api/urls/Links";
+import { Endpoints } from "../../services/api/urls/Endpoints";
+import Alerts from "../../util/alerts/Alerts";
 
 const Email = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -16,8 +19,11 @@ const Email = () => {
     subject: "",
     email: "",
     body: "",
-    secret: ""
+    secret: "",
   });
+
+  const http = Http.getInstance();
+  const emailUrl = baseUrl + Endpoints.sendEmail;
 
   const onHandleChange = (e: any) => {
     const { name, value } = e.target;
@@ -27,16 +33,25 @@ const Email = () => {
   const handleSubmit = (e: any) => {
     setLoading(true);
     e.preventDefault();
-    setTimeout(() => {
-      const credentials: FormData = new FormData();
-      credentials.append("subject", formdata.subject);
-      credentials.append("email", formdata.email);
-      credentials.append("body", formdata.body);
+    const formData: FormData = new FormData();
+    formData.append("subject", formdata.subject);
+    formData.append("recipient", formdata.email);
+    formData.append("body", formdata.body);
+    formData.append("secret", formdata.secret);
 
-      const login = new Login();
-      login.attempt(credentials);
-      setLoading(false);
-    }, 4000);
+    http
+      .post(emailUrl, formData)
+      .then((res) => {
+        console.log(res);
+        Alerts.success(res.message);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.error(e);
+        let message = e.response?.data?.message ?? e.message;
+        Alerts.error(message);
+        setLoading(false);
+      });
   };
 
   const page = (
@@ -45,7 +60,7 @@ const Email = () => {
       <div className="mt-10 text-white w-full rounded-lg shadow bg-gray-800 border-gray-700">
         <div className="p-4 space-y-4">
           <h1 className="text-xl font-bold leading-tight tracking-tight text-white">
-            Send Encrypted mail
+            Send Encrypted Mail
           </h1>
           <form
             method="POST"
@@ -57,7 +72,7 @@ const Email = () => {
                 type="subject"
                 name="subject"
                 id="subject"
-                className="border-gray-300 sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
+                className="sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
                 placeholder="subject"
                 value={formdata.subject}
                 onChange={onHandleChange}
@@ -69,7 +84,7 @@ const Email = () => {
                 type="email"
                 name="email"
                 id="email"
-                className="border-gray-300 sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
+                className="sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
                 placeholder="recipient email"
                 value={formdata.email}
                 onChange={onHandleChange}
