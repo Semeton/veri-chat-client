@@ -16,4 +16,5 @@ export const Endpoints = {
   updateEncrypText: "/documents/",
   deleteEncrypText: "/documents/delete/",
   decryptText: "/documents/decrypt/",
+  email: "/emails",
 };

@@ -18,6 +18,7 @@ import Notification from "../views/notification/Notification";
 import Settings from "../views/settings/Settings";
 import Privacy from "../views/privacy/Privacy";
 import ChatView from "../views/chat/components/ChatView";
+import VaultContentView from "../views/vault/components/VaultContentView";
 
 const Router = (): JSX.Element => {
   return (
@@ -63,8 +64,14 @@ const Router = (): JSX.Element => {
         <Route path="/privacy" element={<AuthRoute />}>
           <Route path="/privacy" element={<Privacy />} />
         </Route>
-        <Route path="/chatview/:id" element={<AuthRoute />}>
+        <Route path="/chatview/:id/:secret" element={<AuthRoute />}>
           <Route path="/chatview/:id/:secret" element={<ChatView />} />
+        </Route>
+        <Route path="/vault-content/:id/:secret" element={<AuthRoute />}>
+          <Route
+            path="/vault-content/:id/:secret"
+            element={<VaultContentView />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

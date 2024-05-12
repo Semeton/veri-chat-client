@@ -45,7 +45,6 @@ const Vault = () => {
         setLoading(false);
       })
       .catch((e) => {
-        console.error(e);
         let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         setLoading(false);

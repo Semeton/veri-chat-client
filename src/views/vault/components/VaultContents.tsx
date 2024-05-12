@@ -7,11 +7,13 @@ import Http from "../../../services/handlers/Http";
 import { baseUrl } from "../../../services/api/urls/Links";
 import { Endpoints } from "../../../services/api/urls/Endpoints";
 import Alerts from "../../../util/alerts/Alerts";
+import { useNavigate } from "react-router-dom";
 
 const VaultContents: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [encryptedTexts, setEncryptedTexts] = useState([]);
 
+  const navigate = useNavigate();
   const http = Http.getInstance();
   const encryptedTextsUrl = baseUrl + Endpoints.encryptText;
   const deleteEncrypTextUrl = baseUrl + Endpoints.deleteEncrypText;
@@ -29,16 +31,23 @@ const VaultContents: React.FC = () => {
     http
       .get(encryptedTextsUrl)
       .then((res) => {
-        console.log(res);
         setEncryptedTexts(res);
         setLoading(false);
       })
       .catch((e) => {
-        console.log(e);
         let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         setLoading(false);
       });
+  };
+
+  const decryptText = (uuid: string) => {
+    let secret: string | null = prompt("Enter chat secret keys:", "");
+    if (secret === null) {
+      alert("Canceled! No key entered.");
+      return;
+    }
+    navigate("/vault-content/" + uuid + "/" + secret);
   };
 
   const deleteMessage = (uuid: string) => {
@@ -48,12 +57,10 @@ const VaultContents: React.FC = () => {
       http
         .get(deleteEncrypTextUrl + uuid)
         .then((res) => {
-          console.log(res);
           getEncryptedTexts();
           Alerts.success(res.message);
         })
         .catch((e) => {
-          console.error(e);
           let message = e.response?.data?.message ?? e.message;
           Alerts.error(message);
           setLoading(false);
@@ -68,10 +75,7 @@ const VaultContents: React.FC = () => {
       {loading && <Loader />}
       <div className="flex flex-col h-screen justify-between bg-gray-900 text-white">
         <main className="mb-auto p-4 px-5">
-          <div
-            onClick={() => window.history.back()}
-            className={"cursor-pointer"}
-          >
+          <div onClick={() => navigate("/vault")} className={"cursor-pointer"}>
             <FontAwesomeIcon icon={faArrowLeftLong} className="mr-3" />
             Back
           </div>
@@ -81,10 +85,27 @@ const VaultContents: React.FC = () => {
             </h1>
           </div>
           <div className="mt-3 overflow-y-scroll">
+            {encryptedTexts.length === 0 && (
+              <div className="text-center">
+                <div className="mb-3 mt-7 text-indigo-500">
+                  <FontAwesomeIcon
+                    icon={faUserSecret}
+                    size="2xl"
+                    style={{ fontSize: "100px" }}
+                    className=""
+                  />
+                </div>
+                <h3 className="text-2xl font-bold">Ooops!</h3>
+                <p className="">You do not have any encrypted text/document</p>
+              </div>
+            )}
             <div className="grid">
               {encryptedTexts.map((text) => (
                 <div className={styles}>
-                  <div className="flex items-center">
+                  <div
+                    className="flex items-center"
+                    onClick={() => decryptText((text as any).uuid)}
+                  >
                     <FontAwesomeIcon
                       icon={faUserSecret}
                       size="2xl"
