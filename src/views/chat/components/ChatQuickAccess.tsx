@@ -40,7 +40,7 @@ const ChatQuickAccess = () => {
       })
       .catch((e) => {
         console.error(e);
-        let message = e.response?.data?.message ?? e.message;
+        let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         setSending(false);
       });

@@ -5,7 +5,7 @@ import {
   faCircleMinus,
   faIdBadge,
   faKey,
-  faShieldHalved
+  faShieldHalved,
   //   faUserSecret
 } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
@@ -32,9 +32,7 @@ const Settings: React.FC = () => {
 
   const goBack = () => {
     setLoading(true);
-    setTimeout(() => {
-      navigate("/dashboard");
-    }, 1000);
+    navigate("/dashboard");
   };
   const styles: string =
     "flex bg-gray-950 p-3 text-white rounded-md border border-gray-800 items-center justify-between mt-1";
@@ -47,7 +45,7 @@ const Settings: React.FC = () => {
             <div onClick={goBack} className={"cursor-pointer"}>
               <FontAwesomeIcon icon={faArrowLeftLong} />
             </div>
-            <div className="text-center cols-span-2">
+            <div className="text-center col-span-2">
               <h1 className="text-lg font-bold leading-tight tracking-tight md:text-2xl text-white">
                 Settings
               </h1>
@@ -56,14 +54,14 @@ const Settings: React.FC = () => {
           <div className="mt-5 overflow-y-scroll">
             <div className="grid">
               <div className={styles}>
-                <div className="flex items-center">
+                <Link to="/change-password" className="flex items-center">
                   <div className="w-[2rem]">
                     <FontAwesomeIcon icon={faKey} className="mr-3" />
                   </div>
                   <div className="mr-2">
                     <p>Change Password</p>
                   </div>
-                </div>
+                </Link>
                 <div className="mr-2">
                   <FontAwesomeIcon icon={faCaretRight} />
                 </div>

@@ -46,7 +46,7 @@ const Email = () => {
         setLoading(false);
       })
       .catch((e) => {
-        let message = e.response?.data?.message ?? e.message;
+        let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         setLoading(false);
       });

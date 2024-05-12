@@ -11,7 +11,6 @@ import LoadingButton from "../../components/buttons/LoadingButton";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 
 const VaultContentView: React.FC = () => {
-  // const [decryptText, setDecryptText] = useState("");
   const [loading, setLoading] = useState<Boolean>(true);
   const [sending, setSending] = useState<Boolean>(false);
   const [editMode, setEditMode] = useState<Boolean>(false);
@@ -43,11 +42,10 @@ const VaultContentView: React.FC = () => {
       .then((res) => {
         console.log(res);
         setFormdata({ ...formdata, title: res.title, body: res.document });
-        // setDecryptText(res);
         setLoading(false);
       })
       .catch((e) => {
-        let message = e.response?.data?.message ?? e.message;
+        let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         navigate("/vault-contents");
       });
@@ -75,7 +73,7 @@ const VaultContentView: React.FC = () => {
         setSending(false);
       })
       .catch((e) => {
-        let message = e.response?.data?.message ?? e.message;
+        let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         setSending(false);
         setEditMode(false);

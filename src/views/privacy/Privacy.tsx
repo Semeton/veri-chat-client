@@ -4,7 +4,7 @@ import {
   faCaretRight,
   faGhost,
   faHandDots,
-  faShieldHalved
+  faShieldHalved,
 } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../components/Loader";
@@ -45,7 +45,7 @@ const Privacy: React.FC = () => {
             <div onClick={goBack} className={"cursor-pointer"}>
               <FontAwesomeIcon icon={faArrowLeftLong} />
             </div>
-            <div className="text-center cols-span-2">
+            <div className="text-center col-span-2">
               <h1 className="text-lg font-bold leading-tight tracking-tight md:text-2xl text-white">
                 Privacy
               </h1>

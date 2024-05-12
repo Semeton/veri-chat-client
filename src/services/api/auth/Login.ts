@@ -39,7 +39,7 @@ class Login implements ILogin, IRequest {
         })
         .catch((e) => {
           console.log(e);
-          let message = e.response?.data?.message ?? e.message;
+          let message = e.response?.data?.error ?? e.message;
           Alerts.error(message);
         });
     });

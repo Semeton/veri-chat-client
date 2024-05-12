@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Login from "../../services/api/auth/Login";
 import LoadingButton from "../components/buttons/LoadingButton";
 import PrimaryButton from "../components/buttons/PrimaryButton";
 import Structure from "../layout/Structure";
@@ -7,6 +6,11 @@ import { userDetails } from "../../lib/UserDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import Http from "../../services/handlers/Http";
+import { baseUrl } from "../../services/api/urls/Links";
+import { Endpoints } from "../../services/api/urls/Endpoints";
+import Alerts from "../../util/alerts/Alerts";
+import User from "../../services/api/auth/User";
 
 const Profile = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -17,8 +21,11 @@ const Profile = () => {
   }>({
     username: userDetails.username,
     name: userDetails.name,
-    email: userDetails.email
+    email: userDetails.email,
   });
+
+  const http = Http.getInstance();
+  const updateProfileUrl = baseUrl + Endpoints.update;
 
   useEffect(() => {
     const header = document.getElementById("headerLayout");
@@ -33,18 +40,28 @@ const Profile = () => {
   };
 
   const handleSubmit = (e: any) => {
+    const user = new User();
+
     setLoading(true);
     e.preventDefault();
-    setTimeout(() => {
-      const credentials: FormData = new FormData();
-      credentials.append("username", formdata.username);
-      credentials.append("name", formdata.name);
-      credentials.append("email", formdata.email);
+    const formData: FormData = new FormData();
+    formData.append("username", formdata.username);
+    formData.append("name", formdata.name);
+    formData.append("email", formdata.email);
 
-      const login = new Login();
-      login.attempt(credentials);
-      setLoading(false);
-    }, 4000);
+    http
+      .post(updateProfileUrl, formData)
+      .then((res) => {
+        user.getUser();
+        Alerts.success(res.message);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.log(e);
+        let message = e.response?.data?.error ?? e.message;
+        Alerts.error(message);
+        setLoading(false);
+      });
   };
 
   const page = (
@@ -80,7 +97,7 @@ const Profile = () => {
                 type="text"
                 name="username"
                 id="username"
-                className="border-gray-300 sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
+                className="sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
                 placeholder="username"
                 value={formdata.username}
                 onChange={onHandleChange}
@@ -92,7 +109,7 @@ const Profile = () => {
                 type="text"
                 name="name"
                 id="name"
-                className="border-gray-300 sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
+                className="sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
                 placeholder="name"
                 value={formdata.name}
                 onChange={onHandleChange}
@@ -104,7 +121,7 @@ const Profile = () => {
                 type="email"
                 name="email"
                 id="email"
-                className="border-gray-300 sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
+                className="sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white"
                 placeholder="recipient email"
                 value={formdata.email}
                 onChange={onHandleChange}

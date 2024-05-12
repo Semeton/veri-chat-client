@@ -39,7 +39,7 @@ const RecentChats: React.FC = () => {
       })
       .catch((e) => {
         console.error(e);
-        let message = e.response?.data?.message ?? e.message;
+        let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         setLoading(false);
       });
@@ -102,7 +102,7 @@ const RecentChats: React.FC = () => {
       })
       .catch((e) => {
         console.error(e);
-        let message = e.response?.data?.message ?? e.message;
+        let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         setLoading(false);
       });

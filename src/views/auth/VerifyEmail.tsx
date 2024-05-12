@@ -50,7 +50,7 @@ const VerifyEmail: React.FC<{
       })
       .catch((e) => {
         console.log(e);
-        let message = e.response?.data?.message ?? e.message;
+        let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         setLoading(false);
       });
@@ -65,7 +65,7 @@ const VerifyEmail: React.FC<{
       })
       .catch((e) => {
         console.log(e);
-        let message = e.response?.data?.message ?? e.message;
+        let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         setLoading(false);
       });

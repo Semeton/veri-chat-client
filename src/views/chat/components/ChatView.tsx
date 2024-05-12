@@ -52,7 +52,7 @@ const ChatView: React.FC = () => {
       })
       .catch((e) => {
         console.error(e);
-        let message = e.response?.data?.message ?? e.message;
+        let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         navigate("/dashboard");
       });
@@ -66,7 +66,7 @@ const ChatView: React.FC = () => {
         setLoading(false);
       })
       .catch((e) => {
-        let message = e.response?.data?.message ?? e.message;
+        let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         navigate("/dashboard");
       });
@@ -87,7 +87,7 @@ const ChatView: React.FC = () => {
         setFormdata({ ...formdata, message: "" });
       })
       .catch((e) => {
-        let message = e.response?.data?.message ?? e.message;
+        let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
       });
   };

@@ -19,6 +19,7 @@ import Settings from "../views/settings/Settings";
 import Privacy from "../views/privacy/Privacy";
 import ChatView from "../views/chat/components/ChatView";
 import VaultContentView from "../views/vault/components/VaultContentView";
+import ChangePassword from "../views/settings/items/ChangePassword";
 
 const Router = (): JSX.Element => {
   return (
@@ -60,6 +61,9 @@ const Router = (): JSX.Element => {
         </Route>
         <Route path="/settings" element={<AuthRoute />}>
           <Route path="/settings" element={<Settings />} />
+        </Route>
+        <Route path="/change-password" element={<AuthRoute />}>
+          <Route path="/change-password" element={<ChangePassword />} />
         </Route>
         <Route path="/privacy" element={<AuthRoute />}>
           <Route path="/privacy" element={<Privacy />} />
