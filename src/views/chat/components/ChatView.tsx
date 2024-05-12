@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Http from "../../../services/handlers/Http";
 import { baseUrl } from "../../../services/api/urls/Links";
@@ -12,11 +13,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BarLoader from "../../components/BarLoader";
+import io from "socket.io-client";
+import { userDetails } from "../../../lib/UserDetails";
 
+interface Message {
+  message: string;
+  time: any;
+  user_id: string;
+}
 const ChatView: React.FC = () => {
   const [chatName, setChatName] = useState("");
   const [me, setMe] = useState("");
-  const [chatMessages, setChatMessages] = useState([]);
+  const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
   const [formdata, setFormdata] = useState<{ message: string }>({
     message: "",
@@ -27,19 +35,32 @@ const ChatView: React.FC = () => {
   const http = Http.getInstance();
   const chatUrl = baseUrl + Endpoints.chat + id;
   const chatMessagesUrl = baseUrl + Endpoints.chatMessages;
+
   const sendMessageUrl = baseUrl + Endpoints.sendMessage + id;
 
+  const contentRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  const socket = io("http://localhost:3888");
+  socket.emit("authenticate", { userId: userDetails.id });
 
   useEffect(
     () => {
       getChatMessages();
       getChat();
       setLoading(false);
+
+      scrollToBottom();
     },
     // eslint-disable-next-line
     [],
   );
+
+  const scrollToBottom = () => {
+    if (contentRef.current) {
+      contentRef.current.scrollIntoView({ behavior: "auto", block: "end" });
+    }
+  };
 
   const getChat = () => {
     setLoading(true);
@@ -84,6 +105,7 @@ const ChatView: React.FC = () => {
     http
       .post(sendMessageUrl, data)
       .then((res) => {
+        socket.emit("chat", formdata.message, userDetails.id);
         setFormdata({ ...formdata, message: "" });
       })
       .catch((e) => {
@@ -91,6 +113,27 @@ const ChatView: React.FC = () => {
         Alerts.error(message);
       });
   };
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = ("0" + (now.getMonth() + 1)).slice(-2);
+    const day = ("0" + now.getDate()).slice(-2);
+    const hours = ("0" + (now.getHours() % 12 || 12)).slice(-2);
+    const minutes = ("0" + now.getMinutes()).slice(-2);
+    const ampm = now.getHours() >= 12 ? "PM" : "AM";
+
+    return `${year}-${month}-${day} ${hours}:${minutes} ${ampm}`;
+  };
+
+  socket.on("chat", (msg, id) => {
+    const currentTime = getCurrentDateTime();
+    setChatMessages((prevMessages) => [
+      ...prevMessages,
+      { message: msg, time: currentTime, user_id: id },
+    ]);
+    setMe(userDetails.id);
+    setTimeout(scrollToBottom, 100);
+  });
 
   return (
     <div className="fixed">
@@ -98,7 +141,7 @@ const ChatView: React.FC = () => {
       <div className="flex h-screen flex-col justify-between bg-gray-900">
         <header className="mb-2 grid grid-cols-3 items-center justify-between bg-gray-950 text-white">
           <div
-            onClick={() => window.history.back()}
+            onClick={() => navigate("/chats")}
             className="flex h-16 items-center p-6"
           >
             <FontAwesomeIcon icon={faArrowLeftLong} />
@@ -132,21 +175,25 @@ const ChatView: React.FC = () => {
               </p>
             </div>
           ) : (
-            <div className="block">
+            <div className="block" ref={contentRef}>
               {chatMessages.map((message) => (
-                <div>
+                <div className="">
                   {(message as any).user_id === me ? (
-                    <div className="float-left my-1 min-w-32 max-w-72 rounded-lg bg-indigo-500 p-2 text-white">
-                      {(message as any).message}
-                      <div className="text-right text-xs pl-5 opacity-70">
-                        {(message as any).time}
+                    <div className="grid justify-end">
+                      <div className="my-1 min-w-32 max-w-72 rounded-lg bg-indigo-500 p-2 text-white">
+                        {(message as any).message}
+                        <div className="text-right text-xs pt-1 pl-5 opacity-40">
+                          {(message as any).time}
+                        </div>
                       </div>
                     </div>
                   ) : (
-                    <div className="float-right my-1 min-w-32 max-w-72 rounded-lg bg-gray-800 p-2 text-white">
-                      {(message as any).message}
-                      <div className="text-right text-xs pl-7 opacity-70">
-                        {(message as any).time}
+                    <div className="grid justify-start">
+                      <div className="my-1 min-w-32 max-w-72 rounded-lg bg-gray-800 p-2 text-white">
+                        {(message as any).message}
+                        <div className="text-right text-xs pt-1 pl-5 opacity-30">
+                          {(message as any).time}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -155,13 +202,13 @@ const ChatView: React.FC = () => {
             </div>
           )}
         </main>
-        <div className="bottom-0 h-24 w-screen bg-gray-950 pt-5">
+        <div className="bottom-0 h-24 w-screen bg-gray-950 py-5">
           <div className="flex items-center justify-around text-center text-sm text-white">
             <input
               type="text"
               name="message"
               id="message"
-              className="focus:ring-primary-600 focus:border-primary-600 ml-2 block h-12 w-80 rounded-lg bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
+              className="focus:ring-primary-600 focus:border-primary-600 ml-2 block h-12 w-[77vw] rounded-lg bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
               value={formdata.message}
               onChange={onHandleChange}
               required

@@ -96,9 +96,10 @@ const RecentChats: React.FC = () => {
     http
       .post(chatSecretUrl + uuid, data)
       .then((res) => {
-        console.log(res);
         Alerts.success("Chat secret set successfully");
         setLoading(false);
+        getChats();
+        // window.location.reload();
       })
       .catch((e) => {
         console.error(e);
