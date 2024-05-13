@@ -4,11 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>You are offline</title>
-        <link
+
+        <!-- <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-        />
-        <script src="https://cdn.tailwindcss.com"></script>
+        /> -->
+        <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css" />
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
         <style>
             body {
                 display: flex;
@@ -22,18 +24,42 @@
                     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
                     "Droid Sans", "Helvetica Neue", sans-serif;
             }
+
+            @keyframes bounce {
+                0%,
+                20%,
+                50%,
+                80%,
+                100% {
+                    transform: translateY(0);
+                }
+                40% {
+                    transform: translateY(-30px);
+                }
+                60% {
+                    transform: translateY(-15px);
+                }
+            }
+
+            .custom-animate-bounce {
+                animation: bounce 2s infinite;
+            }
+
+            .custom-text-indigo-300 {
+                color: #7f9cf5;
+            }
         </style>
     </head>
     <body>
-        <div class="text-center mx-auto">
-            <div class="animate-bounce text-indigo-300">
+        <div class="" style="text-align: center">
+            <div class="custom-text-indigo-300 custom-animate-bounce">
                 <i
                     class="fa fa-user-secret fa-10x"
                     aria-hidden="true"
                     style="font-size: 200px"
                 ></i>
             </div>
-            <h1 class="text-xl">You are offline</h1>
+            <h1>You are offline</h1>
             <p>Please check your internet connection.</p>
         </div>
     </body>
