@@ -37,7 +37,7 @@ class Login implements ILogin, IRequest {
           window.location.href = "/dashboard";
         })
         .catch((e) => {
-          let message = e.response?.data?.error ?? e.message;
+          let message = e.response?.data?.message ?? e.message;
           Alerts.error(message);
         });
     });

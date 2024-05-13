@@ -17,16 +17,11 @@ const Settings: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-
     const header = document.getElementById("headerLayout");
     if (header) {
       header.style.display = "none";
     }
-  }, [setLoading]);
+  });
 
   const navigate = useNavigate();
 

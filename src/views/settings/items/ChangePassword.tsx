@@ -40,12 +40,12 @@ const ChangePassword: React.FC = () => {
     if (header) {
       header.style.display = "none";
     }
-  }, [setLoading]);
+  });
 
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate("/dashboard");
+    window.history.back();
   };
 
   const onHandleChange = (e: any) => {

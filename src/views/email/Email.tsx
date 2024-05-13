@@ -43,10 +43,18 @@ const Email = () => {
       .post(emailUrl, formData)
       .then((res) => {
         Alerts.success(res.message);
+        setFormdata({
+          ...formdata,
+          subject: "",
+          email: "",
+          body: "",
+          secret: "",
+        });
         setLoading(false);
       })
       .catch((e) => {
-        let message = e.response?.data?.error ?? e.message;
+        console.log(e);
+        let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         setLoading(false);
       });
@@ -114,7 +122,7 @@ const Email = () => {
               />
             </div>
             {loading ? (
-              <LoadingButton type="button" text="Processing..." />
+              <LoadingButton type="button" text="Sending..." />
             ) : (
               <PrimaryButton type="submit" text="Send Email" />
             )}

@@ -48,7 +48,7 @@ const VerifyEmail: React.FC<{
         }, 2000);
       })
       .catch((e) => {
-        let message = e.response?.data?.error ?? e.message;
+        let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         setLoading(false);
       });
@@ -62,7 +62,7 @@ const VerifyEmail: React.FC<{
         setLoading(false);
       })
       .catch((e) => {
-        let message = e.response?.data?.error ?? e.message;
+        let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         setLoading(false);
       });

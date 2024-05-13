@@ -44,7 +44,7 @@ const VaultContentView: React.FC = () => {
         setLoading(false);
       })
       .catch((e) => {
-        let message = e.response?.data?.error ?? e.message;
+        let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         navigate("/vault-contents");
       });
@@ -72,7 +72,7 @@ const VaultContentView: React.FC = () => {
         setSending(false);
       })
       .catch((e) => {
-        let message = e.response?.data?.error ?? e.message;
+        let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         setSending(false);
         setEditMode(false);

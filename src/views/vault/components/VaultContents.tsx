@@ -35,7 +35,7 @@ const VaultContents: React.FC = () => {
         setLoading(false);
       })
       .catch((e) => {
-        let message = e.response?.data?.error ?? e.message;
+        let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         setLoading(false);
       });
@@ -61,7 +61,7 @@ const VaultContents: React.FC = () => {
           Alerts.success(res.message);
         })
         .catch((e) => {
-          let message = e.response?.data?.error ?? e.message;
+          let message = e.response?.data?.message ?? e.message;
           Alerts.error(message);
           setLoading(false);
         });
