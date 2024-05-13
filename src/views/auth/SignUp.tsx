@@ -109,7 +109,6 @@ const SignUp = () => {
         }, 2000);
       })
       .catch((e) => {
-        console.log(e);
         let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         setLoading(false);

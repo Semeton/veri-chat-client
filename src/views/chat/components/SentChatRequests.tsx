@@ -32,7 +32,6 @@ const SentChatRequests: React.FC = () => {
     http
       .get(chatUrl)
       .then((res) => {
-        console.log(res);
         if (res.sent) setChatsRequest(res.sent);
         setLoading(false);
       })

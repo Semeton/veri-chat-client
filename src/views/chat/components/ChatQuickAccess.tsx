@@ -34,7 +34,6 @@ const ChatQuickAccess = () => {
     http
       .post(sendChatRequestUrl, data)
       .then((res) => {
-        console.log(res);
         Alerts.success("Chat request sent successfully");
         setSending(false);
       })

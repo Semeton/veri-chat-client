@@ -45,10 +45,7 @@ const ChangePassword: React.FC = () => {
   const navigate = useNavigate();
 
   const goBack = () => {
-    setLoading(true);
-    setTimeout(() => {
-      navigate("/dashboard");
-    }, 1000);
+    navigate("/dashboard");
   };
 
   const onHandleChange = (e: any) => {

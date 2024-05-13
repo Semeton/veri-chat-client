@@ -31,7 +31,6 @@ const ChatRequests: React.FC = () => {
     http
       .get(chatUrl)
       .then((res) => {
-        console.log(res);
         if (res.received) setChatsRequest(res.received);
         setLoading(false);
       })
@@ -48,7 +47,6 @@ const ChatRequests: React.FC = () => {
     http
       .get(acceptUrl + uuid)
       .then((res) => {
-        console.log(res);
         Alerts.success(res.message);
       })
       .catch((e) => {

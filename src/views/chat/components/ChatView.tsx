@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Http from "../../../services/handlers/Http";
-import { baseUrl } from "../../../services/api/urls/Links";
+import { baseUrl, webSockectLink } from "../../../services/api/urls/Links";
 import { Endpoints } from "../../../services/api/urls/Endpoints";
 import Alerts from "../../../util/alerts/Alerts";
 import { useEffect, useState } from "react";
@@ -41,7 +41,8 @@ const ChatView: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const socket = io("http://localhost:3888");
+  // const socket = io("http://localhost:3888");
+  const socket = io(webSockectLink);
   socket.emit("authenticate", { userId: userDetails.id });
 
   useEffect(

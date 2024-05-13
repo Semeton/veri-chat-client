@@ -28,7 +28,6 @@ class Login implements ILogin, IRequest {
   attempt(credentials: FormData): any {
     handleException(() => {
       if (!this.validate(credentials)) {
-        console.log(this.errors);
         return this.errors;
       }
 
@@ -38,7 +37,6 @@ class Login implements ILogin, IRequest {
           window.location.href = "/dashboard";
         })
         .catch((e) => {
-          console.log(e);
           let message = e.response?.data?.error ?? e.message;
           Alerts.error(message);
         });

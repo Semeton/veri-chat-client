@@ -33,7 +33,6 @@ const RecentChats: React.FC = () => {
     http
       .get(chatUrl)
       .then((res) => {
-        console.log(res);
         setChats(res);
         setLoading(false);
       })
@@ -107,8 +106,6 @@ const RecentChats: React.FC = () => {
         Alerts.error(message);
         setLoading(false);
       });
-
-    console.log(uuid, secret, csecret);
   };
 
   return (

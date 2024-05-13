@@ -39,7 +39,6 @@ const VerifyEmail: React.FC<{
     http
       .get(verifyCodeUrl)
       .then((res) => {
-        console.log(res);
         if (res.token) {
           LocalStorageStore.storeData({ token: res.token });
         }
@@ -49,7 +48,6 @@ const VerifyEmail: React.FC<{
         }, 2000);
       })
       .catch((e) => {
-        console.log(e);
         let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         setLoading(false);
@@ -64,7 +62,6 @@ const VerifyEmail: React.FC<{
         setLoading(false);
       })
       .catch((e) => {
-        console.log(e);
         let message = e.response?.data?.error ?? e.message;
         Alerts.error(message);
         setLoading(false);

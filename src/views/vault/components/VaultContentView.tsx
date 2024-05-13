@@ -40,7 +40,6 @@ const VaultContentView: React.FC = () => {
     http
       .get(decryptTextUrl + id + "/" + secret)
       .then((res) => {
-        console.log(res);
         setFormdata({ ...formdata, title: res.title, body: res.document });
         setLoading(false);
       })
