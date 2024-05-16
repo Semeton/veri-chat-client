@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import Alerts from "../../../util/alerts/Alerts";
 import BarLoader from "../../components/BarLoader";
+import Swal from "sweetalert2";
 
 const RecentChats: React.FC = () => {
   const [loading, setLoading] = useState<Boolean>(false);
@@ -43,49 +44,122 @@ const RecentChats: React.FC = () => {
       });
   };
 
-  const openChat = (lock: string | null, uuid: string) => {
+  const openChat = async (lock: string | null, uuid: string) => {
     if (lock === null) {
       alert("You need to set a chat secret for this chat first");
       setChatSecret(uuid);
     } else {
-      let secret: string | null = prompt("Enter chat secret keys:", "");
-      if (secret === null) {
-        alert("Canceled! No key entered.");
+      let { value: secret } = await Swal.fire({
+        title: "Enter chat secret",
+        input: "password",
+        inputLabel: "Chat secret",
+        inputPlaceholder: "Enter chat secret",
+        confirmButtonColor: "rgb(79 70 229)",
+        inputAttributes: {
+          maxlength: "10",
+          autocapitalize: "off",
+          autocorrect: "off",
+        },
+        inputValidator: (value) => {
+          return new Promise((resolve) => {
+            if (value === null || value === "") {
+              resolve("Secret cannot be blank.");
+            } else {
+              resolve();
+            }
+          });
+        },
+      });
+      if (!secret) {
+        Alerts.error("Canceled! Secret was not set.");
         return;
       }
-      navigate("/chatview/" + uuid + "/" + secret);
+      if (secret && secret.length > 0) {
+        navigate("/chatview/" + uuid + "/" + secret);
+      }
     }
   };
 
-  const setChatSecret = (uuid: string) => {
-    let secret: string | null = prompt("Enter chatsecret keys:", "");
-    if (secret === null) {
-      alert("Canceled! Secret was not set.");
+  const setChatSecret = async (uuid: string) => {
+    let { value: secret } = await Swal.fire({
+      title: "Set chat secret",
+      input: "password",
+      inputLabel: "Chat secret",
+      inputPlaceholder: "Enter chat secret",
+      confirmButtonColor: "rgb(79 70 229)",
+      inputAttributes: {
+        maxlength: "10",
+        autocapitalize: "off",
+        autocorrect: "off",
+      },
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          if (value === null || value === "") {
+            resolve("Canceled! Secret was cannot be empty.");
+          } else if (value.length < 6) {
+            resolve(
+              "Secret must be at least 6 characters and cannot be empty.",
+            );
+          } else {
+            resolve();
+          }
+        });
+      },
+    });
+    if (!secret) {
+      Alerts.error("Canceled! Secret was not set.");
       return;
     }
-    if (secret.length < 6) {
-      alert("Secret must be at least 6 characters and cannot be empty.");
-      return;
-    }
-    let csecret: string | null = prompt("Confirm secret keys:", "");
-    if (csecret === null) {
-      alert("Secret was not confirmed.");
-      return;
-    }
-    while (csecret !== secret) {
-      alert("Secrets do not match. Please try again.");
-      secret = prompt("Enter secret keys:", "");
-      if (secret === null || secret.length < 6) {
-        alert(
-          "Secret was not set or does not meet the minimum length requirement.",
-        );
+    if (secret) {
+      let { value: csecret } = await Swal.fire({
+        title: "Confirm chat secret",
+        input: "password",
+        inputLabel: "Chat secret",
+        inputPlaceholder: "Confirm chat secret",
+        confirmButtonColor: "rgb(79 70 229)",
+        inputAttributes: {
+          maxlength: "10",
+          autocapitalize: "off",
+          autocorrect: "off",
+        },
+        inputValidator: (value) => {
+          return new Promise((resolve) => {
+            if (value === null || value === "") {
+              resolve("Secret was not confirmed");
+            } else if (value !== secret) {
+              resolve("Confirm secret must match secret");
+            } else if (value === secret) {
+              resolve();
+            }
+          });
+        },
+      });
+
+      if (!csecret || csecret !== secret) {
+        Alerts.error("Chat secret was not confirmed. Try again later.");
         return;
       }
-      csecret = prompt("Confirm secret keys:", "");
-      if (csecret === null) {
-        alert("Secret confirmation was cancelled.");
-        return;
-      }
+
+      // while (csecret !== secret) {
+      //   alert("Secrets do not match. Please try again.");
+      //   secret = prompt("Enter secret keys:", "");
+      //   if (secret === null || secret.length < 6) {
+      //     alert(
+      //       "Secret was not set or does not meet the minimum length requirement.",
+      //     );
+      //     return;
+      //   }
+      //   csecret = prompt("Confirm secret keys:", "");
+      //   if (csecret === null) {
+      //     alert("Secret confirmation was cancelled.");
+      //     return;
+      //   }
+      // }
+
+      // if (csecret === null) {
+      //   alert("Secret was not confirmed.");
+      //   return;
+      // }
     }
 
     const data: FormData = new FormData();
@@ -97,10 +171,8 @@ const RecentChats: React.FC = () => {
         Alerts.success("Chat secret set successfully");
         setLoading(false);
         getChats();
-        // window.location.reload();
       })
       .catch((e) => {
-        console.error(e);
         let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         setLoading(false);

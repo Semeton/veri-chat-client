@@ -6,9 +6,9 @@ import Alerts from "../../../util/alerts/Alerts";
 import { useEffect, useState } from "react";
 import { faArrowLeftLong, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BarLoader from "../../components/BarLoader";
 import LoadingButton from "../../components/buttons/LoadingButton";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
+import Loader from "../../components/Loader";
 
 const VaultContentView: React.FC = () => {
   const [loading, setLoading] = useState<Boolean>(true);
@@ -29,7 +29,6 @@ const VaultContentView: React.FC = () => {
   useEffect(
     () => {
       getDecryptText();
-      setLoading(false);
     },
     // eslint-disable-next-line
     [],
@@ -81,7 +80,7 @@ const VaultContentView: React.FC = () => {
 
   return (
     <div className="fixed right-0 left-0 bottom-0 top-0">
-      {loading && <BarLoader />}
+      {loading && <Loader />}
       <div className="flex flex-col h-screen justify-between bg-gray-900 text-white">
         <main className="mb-auto p-4 px-5">
           <div

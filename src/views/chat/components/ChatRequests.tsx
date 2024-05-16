@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Alerts from "../../../util/alerts/Alerts";
 import BarLoader from "../../components/BarLoader";
+import { useNavigate } from "react-router-dom";
 
 const ChatRequests: React.FC = () => {
   const [chatsRequest, setChatsRequest] = useState<Array<object>>([]);
@@ -17,6 +18,8 @@ const ChatRequests: React.FC = () => {
   const http = Http.getInstance();
   const chatUrl = baseUrl + Endpoints.receivedChatRequest;
   const acceptUrl = baseUrl + Endpoints.acceptRequest;
+
+  const navigate = useNavigate();
 
   useEffect(
     () => {
@@ -35,7 +38,6 @@ const ChatRequests: React.FC = () => {
         setLoading(false);
       })
       .catch((e) => {
-        console.error(e);
         let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         setLoading(false);
@@ -48,9 +50,9 @@ const ChatRequests: React.FC = () => {
       .get(acceptUrl + uuid)
       .then((res) => {
         Alerts.success(res.message);
+        navigate("/chats");
       })
       .catch((e) => {
-        console.error(e);
         let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
       });

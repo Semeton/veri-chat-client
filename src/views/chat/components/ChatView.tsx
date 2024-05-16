@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BarLoader from "../../components/BarLoader";
 import io from "socket.io-client";
 import { userDetails } from "../../../lib/UserDetails";
+import Loader from "../../components/Loader";
 
 interface Message {
   message: string;
@@ -49,7 +50,7 @@ const ChatView: React.FC = () => {
     () => {
       getChatMessages();
       getChat();
-      setLoading(false);
+      // setLoading(false);
 
       scrollToBottom();
     },
@@ -70,7 +71,6 @@ const ChatView: React.FC = () => {
       .then((res) => {
         res.role === "sender" ? setMe(res.sender_id) : setMe(res.recipient_id);
         setChatName(res.other.name);
-        setLoading(false);
       })
       .catch((e) => {
         console.error(e);
@@ -138,16 +138,16 @@ const ChatView: React.FC = () => {
 
   return (
     <div className="fixed">
-      {loading && <BarLoader />}
+      {loading && <Loader />}
       <div className="flex h-screen flex-col justify-between bg-gray-900">
-        <header className="mb-2 grid grid-cols-3 items-center justify-between bg-gray-950 text-white">
+        <header className="mb-2 grid grid-cols-6 items-center justify-between bg-gray-950 text-white">
           <div
             onClick={() => navigate("/chats")}
             className="flex h-16 items-center p-6"
           >
             <FontAwesomeIcon icon={faArrowLeftLong} />
           </div>
-          <div className="mx-auto">
+          <div className="mx-auto col-span-4">
             <div className="flex items-center justify-center rounded-full text-center text-lg font-bold text-indigo-500">
               {chatName}
             </div>

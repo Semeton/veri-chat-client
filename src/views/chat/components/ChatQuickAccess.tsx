@@ -36,11 +36,13 @@ const ChatQuickAccess = () => {
       .then((res) => {
         Alerts.success("Chat request sent successfully");
         setSending(false);
+        window.location.reload();
       })
       .catch((e) => {
         let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         setSending(false);
+        window.location.reload();
       });
   };
 

@@ -8,6 +8,7 @@ import { baseUrl } from "../../../services/api/urls/Links";
 import { Endpoints } from "../../../services/api/urls/Endpoints";
 import Alerts from "../../../util/alerts/Alerts";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const VaultContents: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -41,13 +42,40 @@ const VaultContents: React.FC = () => {
       });
   };
 
-  const decryptText = (uuid: string) => {
-    let secret: string | null = prompt("Enter chat secret keys:", "");
-    if (secret === null) {
-      alert("Canceled! No key entered.");
+  const decryptText = async (uuid: string) => {
+    let { value: secret } = await Swal.fire({
+      title: "Enter vault secret",
+      input: "password",
+      inputLabel: "Vault secret",
+      inputPlaceholder: "Enter vault secret",
+      confirmButtonColor: "rgb(79 70 229)",
+      inputAttributes: {
+        maxlength: "10",
+        autocapitalize: "off",
+        autocorrect: "off",
+      },
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          if (value === null || value === "") {
+            resolve("Secret cannot be blank.");
+          } else {
+            resolve();
+          }
+        });
+      },
+    });
+    if (!secret) {
+      Alerts.error("Canceled! Secret was not set.");
       return;
     }
-    navigate("/vault-content/" + uuid + "/" + secret);
+    if (secret && secret.length > 0) {
+      navigate("/vault-content/" + uuid + "/" + secret);
+    }
+    // let secret: string | null = prompt("Enter chat secret keys:", "");
+    // if (secret === null) {
+    //   alert("Canceled! No key entered.");
+    //   return;
+    // }
   };
 
   const deleteMessage = (uuid: string) => {
@@ -74,7 +102,7 @@ const VaultContents: React.FC = () => {
     <div className="fixed right-0 left-0 bottom-0 top-0">
       {loading && <Loader />}
       <div className="flex flex-col h-screen justify-between bg-gray-900 text-white">
-        <main className="mb-auto p-4 px-5">
+        <main className="mb-auto p-4 px-5 overflow-y-scroll">
           <div onClick={() => navigate("/vault")} className={"cursor-pointer"}>
             <FontAwesomeIcon icon={faArrowLeftLong} className="mr-3" />
             Back

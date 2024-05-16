@@ -44,7 +44,7 @@ const SentMails: React.FC = () => {
     <div className="fixed right-0 left-0 bottom-0 top-0">
       {loading && <Loader />}
       <div className="flex flex-col h-screen justify-between bg-gray-900 text-white">
-        <main className="mb-auto p-4 px-5">
+        <main className="mb-auto p-4 px-5 overflow-y-scroll">
           <div className="grid grid-cols-3 justify-between text-white items-center mb-5 mt-2">
             <div
               onClick={() => window.history.back()}

@@ -36,7 +36,6 @@ const SentChatRequests: React.FC = () => {
         setLoading(false);
       })
       .catch((e) => {
-        console.error(e);
         let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         setLoading(false);
@@ -53,7 +52,7 @@ const SentChatRequests: React.FC = () => {
     <div className="fixed bottom-0 left-0 right-0 top-0">
       {/* {loading && <Loader />} */}
       <div className="flex h-screen flex-col justify-between bg-gray-900 text-white">
-        <main className="mb-auto p-4 px-5">
+        <main className="mb-auto p-4 px-5 overflow-y-scroll">
           <div className="mb-5 mt-2 grid grid-cols-3 items-center justify-between text-white">
             <div onClick={goBack} className={"cursor-pointer"}>
               <FontAwesomeIcon icon={faArrowLeftLong} />
