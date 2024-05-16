@@ -50,9 +50,9 @@ const RecentChats: React.FC = () => {
       setChatSecret(uuid);
     } else {
       let { value: secret } = await Swal.fire({
-        title: "Enter chat secret",
+        // title: "Enter chat secret",
         input: "password",
-        inputLabel: "Chat secret",
+        inputLabel: "Enter chat secret",
         inputPlaceholder: "Enter chat secret",
         confirmButtonColor: "rgb(79 70 229)",
         inputAttributes: {
@@ -82,9 +82,9 @@ const RecentChats: React.FC = () => {
 
   const setChatSecret = async (uuid: string) => {
     let { value: secret } = await Swal.fire({
-      title: "Set chat secret",
+      // title: "Set chat secret",
       input: "password",
-      inputLabel: "Chat secret",
+      inputLabel: "Set chat secret",
       inputPlaceholder: "Enter chat secret",
       confirmButtonColor: "rgb(79 70 229)",
       inputAttributes: {
@@ -112,7 +112,7 @@ const RecentChats: React.FC = () => {
     }
     if (secret) {
       let { value: csecret } = await Swal.fire({
-        title: "Confirm chat secret",
+        // title: "Confirm chat secret",
         input: "password",
         inputLabel: "Chat secret",
         inputPlaceholder: "Confirm chat secret",
@@ -139,27 +139,6 @@ const RecentChats: React.FC = () => {
         Alerts.error("Chat secret was not confirmed. Try again later.");
         return;
       }
-
-      // while (csecret !== secret) {
-      //   alert("Secrets do not match. Please try again.");
-      //   secret = prompt("Enter secret keys:", "");
-      //   if (secret === null || secret.length < 6) {
-      //     alert(
-      //       "Secret was not set or does not meet the minimum length requirement.",
-      //     );
-      //     return;
-      //   }
-      //   csecret = prompt("Confirm secret keys:", "");
-      //   if (csecret === null) {
-      //     alert("Secret confirmation was cancelled.");
-      //     return;
-      //   }
-      // }
-
-      // if (csecret === null) {
-      //   alert("Secret was not confirmed.");
-      //   return;
-      // }
     }
 
     const data: FormData = new FormData();

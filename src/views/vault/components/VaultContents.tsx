@@ -44,9 +44,9 @@ const VaultContents: React.FC = () => {
 
   const decryptText = async (uuid: string) => {
     let { value: secret } = await Swal.fire({
-      title: "Enter vault secret",
+      // title: "Enter vauxlt secret",
       input: "password",
-      inputLabel: "Vault secret",
+      inputLabel: "Enter vault secret",
       inputPlaceholder: "Enter vault secret",
       confirmButtonColor: "rgb(79 70 229)",
       inputAttributes: {

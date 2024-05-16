@@ -1,0 +1,71 @@
+.colored-toast {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    font-family: "Arial", sans-serif;
+    width: auto;
+    padding: 10px;
+}
+
+.colored-toast .swal2-title {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.swal2-popup.swal2-toast {
+    display: flex;
+    align-items: center;
+}
+
+swal2-popup swal2-toast colored-toast swal2-icon-error swal2-show {
+    display: flex !important;
+}
+
+.swal2-popup.swal2-toast .swal2-title {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    text-align: initial;
+}
+
+body.swal2-toast-shown .swal2-container {
+    width: auto;
+}
+
+div:where(.swal2-icon) {
+    border: none;
+}
+
+.colored-toast .swal2-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.colored-toast .swal2-icon.swal2-success {
+    color: #28a745;
+}
+
+.colored-toast .swal2-icon.swal2-error {
+    color: #dc3545;
+}
+
+.swal2-toast .swal2-success .swal2-icon {
+    background-color: white;
+    width: 10px !important;
+    color: #28a745;
+}
+
+.swal2-toast .swal2-error .swal2-icon {
+    background-color: white;
+    width: 10px !important;
+    color: #dc3545;
+}
+
+.swal2-toast .swal2-success {
+    background-color: white;
+    color: #28a745;
+}
+
+.swal2-toast .swal2-error {
+    background-color: white;
+    color: #dc3545;
+}
