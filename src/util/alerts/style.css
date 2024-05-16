@@ -74,6 +74,7 @@ div:where(.swal2-icon) {
 
 div:where(.swal2-container) div:where(.swal2-popup) {
     background: #1f2937;
+    width: 75%;
 }
 
 .swal2-popup.swal2-toast .swal2-icon {

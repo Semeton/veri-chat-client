@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BarLoader from "../../components/BarLoader";
 import io from "socket.io-client";
 import { userDetails } from "../../../lib/UserDetails";
-import Loader from "../../components/Loader";
+// import Loader from "../../components/Loader";
 
 interface Message {
   message: string;
@@ -138,7 +138,7 @@ const ChatView: React.FC = () => {
 
   return (
     <div className="fixed">
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
       <div className="flex h-screen flex-col justify-between bg-gray-900">
         <header className="mb-2 grid grid-cols-6 items-center justify-between bg-gray-950 text-white">
           <div
