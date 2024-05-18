@@ -81,7 +81,7 @@ self.addEventListener("message", (event) => {
 // Any other custom service worker logic can go here.
 const CACHE_NAME = "cache_sample";
 const urlsToCache = ["index.html", "offline.html", "manifest.json"];
-const version = "v0.0.1";
+const version = "v1.0.0";
 //install sw at first time
 //place to cache assets to speed up the loading time of web page
 self.addEventListener("install", (event: any) => {
@@ -92,6 +92,7 @@ self.addEventListener("install", (event: any) => {
       return cache.addAll(urlsToCache);
     }),
   );
+  self.skipWaiting();
 });
 //Activate the sw after install
 //Place where old caches are cleared
@@ -110,6 +111,7 @@ self.addEventListener("activate", (event: any) => {
       ),
     ),
   );
+  self.clients.claim();
 });
 //listen for requests
 self.addEventListener("fetch", (event: any) => {
@@ -118,4 +120,8 @@ self.addEventListener("fetch", (event: any) => {
       return response || fetch(event.request);
     }),
   );
+});
+
+self.addEventListener("controllerchange", () => {
+  window.location.reload();
 });

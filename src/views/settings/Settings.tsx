@@ -40,11 +40,12 @@ const Settings: React.FC = () => {
             <div onClick={goBack} className={"cursor-pointer"}>
               <FontAwesomeIcon icon={faArrowLeftLong} />
             </div>
-            <div className="text-center col-span-2">
+            <div className="text-center">
               <h1 className="text-lg font-bold leading-tight tracking-tight md:text-2xl text-white">
                 Settings
               </h1>
             </div>
+            <div></div>
           </div>
           <div className="mt-5 overflow-y-scroll">
             <div className="grid">

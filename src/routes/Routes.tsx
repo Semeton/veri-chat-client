@@ -20,6 +20,7 @@ import Privacy from "../views/privacy/Privacy";
 import ChatView from "../views/chat/components/ChatView";
 import VaultContentView from "../views/vault/components/VaultContentView";
 import ChangePassword from "../views/settings/items/ChangePassword";
+import ChatSettings from "../views/chat/components/ChatSettings";
 
 const Router = (): JSX.Element => {
   return (
@@ -76,6 +77,9 @@ const Router = (): JSX.Element => {
             path="/vault-content/:id/:secret"
             element={<VaultContentView />}
           />
+        </Route>
+        <Route path="/chat-settings/:id/" element={<AuthRoute />}>
+          <Route path="/chat-settings/:id/" element={<ChatSettings />} />
         </Route>
       </Routes>
     </BrowserRouter>

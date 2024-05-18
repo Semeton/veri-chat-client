@@ -5,7 +5,7 @@ import {
   faUser,
   faGear,
   faRightFromBracket,
-  faEyeSlash
+  faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import User from "../../services/api/auth/User";
 import { userDetails } from "../../lib/UserDetails";

@@ -8,6 +8,7 @@ export const Endpoints = {
   me: "/users/me",
   chats: "/chats",
   chat: "/chats/show/",
+  chatUnlock: "/chats/unlock/",
   chatSecret: "/chats/secret/",
   receivedChatRequest: "/chats/requests",
   acceptRequest: "/chats/requests/accept/",

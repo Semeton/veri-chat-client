@@ -30,6 +30,13 @@ const Alerts = {
       icon: "error",
     });
   },
+
+  info: (message: string) => {
+    Toast.fire({
+      title: message,
+      icon: "info",
+    });
+  },
 };
 
 export default Alerts;

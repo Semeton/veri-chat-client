@@ -71,7 +71,7 @@ const RecentChats: React.FC = () => {
         },
       });
       if (!secret) {
-        Alerts.error("Canceled! Secret was not set.");
+        Alerts.info("Secret was not entered.");
         return;
       }
       if (secret && secret.length > 0) {
@@ -107,7 +107,7 @@ const RecentChats: React.FC = () => {
       },
     });
     if (!secret) {
-      Alerts.error("Canceled! Secret was not set.");
+      Alerts.info("Secret was not set.");
       return;
     }
     if (secret) {

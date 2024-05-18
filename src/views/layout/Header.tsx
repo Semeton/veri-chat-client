@@ -39,7 +39,7 @@ const Header: React.FC = () => {
             onClick={closeSideBar}
           >
             <FontAwesomeIcon
-              className=" text-center mx-auto"
+              className="text-center mx-auto"
               icon={faUserSecret}
               size="2xl"
             />

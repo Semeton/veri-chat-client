@@ -65,7 +65,7 @@ const VaultContents: React.FC = () => {
       },
     });
     if (!secret) {
-      Alerts.error("Canceled! Secret was not set.");
+      Alerts.info("Secret was not entered.");
       return;
     }
     if (secret && secret.length > 0) {

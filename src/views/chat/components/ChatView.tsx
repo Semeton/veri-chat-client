@@ -49,7 +49,7 @@ const ChatView: React.FC = () => {
   useEffect(
     () => {
       getChatMessages();
-      getChat();
+
       // setLoading(false);
 
       scrollToBottom();
@@ -73,7 +73,6 @@ const ChatView: React.FC = () => {
         setChatName(res.other.name);
       })
       .catch((e) => {
-        console.error(e);
         let message = e.response?.data?.message ?? e.message;
         Alerts.error(message);
         navigate("/dashboard");
@@ -84,6 +83,7 @@ const ChatView: React.FC = () => {
     http
       .get(chatMessagesUrl + id + "/" + secret)
       .then((res) => {
+        getChat();
         setChatMessages(res);
         setLoading(false);
       })
@@ -152,7 +152,10 @@ const ChatView: React.FC = () => {
               {chatName}
             </div>
           </div>
-          <div className="flex h-16 items-center justify-end p-6">
+          <div
+            className="flex h-16 items-center justify-end p-6"
+            onClick={() => navigate("/chat-settings/" + id)}
+          >
             <FontAwesomeIcon icon={faGear} size="lg" />
           </div>
         </header>
