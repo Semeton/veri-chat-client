@@ -114,20 +114,17 @@ const ChatView: React.FC = () => {
         Alerts.error(message);
       });
   };
-  const getCurrentDateTime = () => {
+  const getCurrentTime = () => {
     const now = new Date();
-    const year = now.getFullYear();
-    const month = ("0" + (now.getMonth() + 1)).slice(-2);
-    const day = ("0" + now.getDate()).slice(-2);
     const hours = ("0" + (now.getHours() % 12 || 12)).slice(-2);
     const minutes = ("0" + now.getMinutes()).slice(-2);
     const ampm = now.getHours() >= 12 ? "PM" : "AM";
 
-    return `${year}-${month}-${day} ${hours}:${minutes} ${ampm}`;
+    return `${hours}:${minutes} ${ampm}`;
   };
 
   socket.on("chat", (msg, id) => {
-    const currentTime = getCurrentDateTime();
+    const currentTime = getCurrentTime();
     setChatMessages((prevMessages) => [
       ...prevMessages,
       { message: msg, time: currentTime, user_id: id },

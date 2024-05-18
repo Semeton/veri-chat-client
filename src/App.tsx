@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import LargeScreen from "./LargeScreen";
 import Router from "./routes/Routes";
 import "./App.css";
+import useServiceWorker from "./hooks/useServiceWorker";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const { updateAvailable, refreshPage } = useServiceWorker();
 
   useEffect(() => {
     const handleOnlineStatusChange = () => {
       setIsOnline(navigator.onLine);
     };
-
+    if (updateAvailable) {
+      alert("New updates available. Click ok to update your app");
+      refreshPage();
+    }
     window.addEventListener("online", handleOnlineStatusChange);
     window.addEventListener("offline", handleOnlineStatusChange);
 
@@ -18,7 +23,7 @@ function App() {
       window.removeEventListener("online", handleOnlineStatusChange);
       window.removeEventListener("offline", handleOnlineStatusChange);
     };
-  }, []);
+  }, [updateAvailable, refreshPage]);
   return (
     <div className="">
       {isOnline ? (
