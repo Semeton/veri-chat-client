@@ -15,6 +15,7 @@ import {
 import Alerts from "../../../util/alerts/Alerts";
 import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../../components/Loader";
+import Swal from "sweetalert2";
 
 const ChatSettings: React.FC = () => {
   const [other, setOther] = useState(0);
@@ -59,19 +60,31 @@ const ChatSettings: React.FC = () => {
   };
 
   const unlockChat = () => {
-    if (window.confirm("Are you sure you want to unlock this chat message?")) {
-      http
-        .get(unlockChatUrl)
-        .then((res) => {
-          Alerts.success(res.message);
-          getChat();
-        })
-        .catch((e) => {
-          let message = e.response?.data?.message ?? e.message;
-          Alerts.error(message);
-          setLoading(false);
-        });
-    }
+    Swal.fire({
+      // title: "",
+      text: "Are you sure you want to unlock this chat message?",
+      icon: "warning",
+      iconColor: "#d33",
+      showCancelButton: true,
+      color: "#fff",
+      confirmButtonColor: "#6366f1",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, unlock it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        http
+          .get(unlockChatUrl)
+          .then((res) => {
+            Alerts.success(res.message);
+            getChat();
+          })
+          .catch((e) => {
+            let message = e.response?.data?.message ?? e.message;
+            Alerts.error(message);
+            setLoading(false);
+          });
+      }
+    });
   };
 
   const styles: string =
@@ -109,7 +122,6 @@ const ChatSettings: React.FC = () => {
             {other === 0 ? (
               <div className={styles}>
                 <div className="">
-                  {/* <p className="text-xs mb-2 text-white">STATUS</p> */}
                   <div>
                     <FontAwesomeIcon className="mr-2" icon={faLightbulb} />
                     <strong className="text-green-500">ACTIVE</strong>

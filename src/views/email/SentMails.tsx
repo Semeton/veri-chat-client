@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import { faTimesCircle, faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../components/Loader";
 import Alerts from "../../util/alerts/Alerts";
 import { baseUrl } from "../../services/api/urls/Links";
 import { Endpoints } from "../../services/api/urls/Endpoints";
 import Http from "../../services/handlers/Http";
+import Swal from "sweetalert2";
 
 const SentMails: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -14,6 +15,7 @@ const SentMails: React.FC = () => {
 
   const http = Http.getInstance();
   const encryptedEmailsUrl = baseUrl + Endpoints.email;
+  const deleteEncryptedEmailUrl = baseUrl + Endpoints.deleteEmail;
 
   useEffect(
     () => {
@@ -36,6 +38,33 @@ const SentMails: React.FC = () => {
         Alerts.error(message);
         setLoading(false);
       });
+  };
+
+  const deleteEmail = (uuid: string) => {
+    Swal.fire({
+      text: "Are you sure you want to delete this encyrpted message? This action is irreversible.",
+      icon: "warning",
+      iconColor: "#d33",
+      showCancelButton: true,
+      color: "#fff",
+      confirmButtonColor: "#6366f1",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        http
+          .get(deleteEncryptedEmailUrl + uuid)
+          .then((res) => {
+            getEncryptedEmails();
+            Alerts.success(res.message);
+          })
+          .catch((e) => {
+            let message = e.response?.data?.message ?? e.message;
+            Alerts.error(message);
+            setLoading(false);
+          });
+      }
+    });
   };
 
   const styles: string =
@@ -70,7 +99,7 @@ const SentMails: React.FC = () => {
                   />
                 </div>
                 <h3 className="text-2xl font-bold">Ooops!</h3>
-                <p className="">You do not have an active chat</p>
+                <p className="">You have not sent any encrypted email</p>
               </div>
             )}
             <div className="grid">
@@ -88,6 +117,16 @@ const SentMails: React.FC = () => {
                         {(email as any).created_at_hum}
                       </p>
                     </div>
+                  </div>
+                  <div
+                    className="mr-2"
+                    onClick={() => deleteEmail((email as any).uuid)}
+                  >
+                    <FontAwesomeIcon
+                      className="text-red-500"
+                      size="lg"
+                      icon={faTimesCircle}
+                    />
                   </div>
                 </div>
               ))}

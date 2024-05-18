@@ -79,21 +79,30 @@ const VaultContents: React.FC = () => {
   };
 
   const deleteMessage = (uuid: string) => {
-    if (
-      window.confirm("Are you sure you want to delete this encyrpted message?")
-    ) {
-      http
-        .get(deleteEncrypTextUrl + uuid)
-        .then((res) => {
-          getEncryptedTexts();
-          Alerts.success(res.message);
-        })
-        .catch((e) => {
-          let message = e.response?.data?.message ?? e.message;
-          Alerts.error(message);
-          setLoading(false);
-        });
-    }
+    Swal.fire({
+      text: "Are you sure you want to delete this encyrpted message? This action is irreversible.",
+      icon: "warning",
+      iconColor: "#d33",
+      showCancelButton: true,
+      color: "#fff",
+      confirmButtonColor: "#6366f1",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        http
+          .get(deleteEncrypTextUrl + uuid)
+          .then((res) => {
+            getEncryptedTexts();
+            Alerts.success(res.message);
+          })
+          .catch((e) => {
+            let message = e.response?.data?.message ?? e.message;
+            Alerts.error(message);
+            setLoading(false);
+          });
+      }
+    });
   };
 
   const styles: string =

@@ -35,6 +35,7 @@ const Alerts = {
     Toast.fire({
       title: message,
       icon: "info",
+      iconColor: "#6366f1",
     });
   },
 };

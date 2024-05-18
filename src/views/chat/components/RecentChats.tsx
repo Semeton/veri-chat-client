@@ -46,12 +46,25 @@ const RecentChats: React.FC = () => {
 
   const openChat = async (lock: string | null, uuid: string) => {
     if (lock === null) {
-      alert("You need to set a chat secret for this chat first");
-      setChatSecret(uuid);
+      Swal.fire({
+        text: "You need to set a chat secret first",
+        icon: "info",
+        iconColor: "#6366f1",
+        showCancelButton: true,
+        color: "#fff",
+        confirmButtonColor: "#6366f1",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Okay",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setChatSecret(uuid);
+        }
+      });
     } else {
       let { value: secret } = await Swal.fire({
         // title: "Enter chat secret",
         input: "password",
+        color: "#fff",
         inputLabel: "Enter chat secret",
         inputPlaceholder: "Enter chat secret",
         confirmButtonColor: "rgb(79 70 229)",

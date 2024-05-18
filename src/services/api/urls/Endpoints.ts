@@ -6,6 +6,7 @@ export const Endpoints = {
   verify: "/users/verify",
   verifyToken: "/users/verify/token",
   me: "/users/me",
+  purgeData: "/users/purge-data",
   chats: "/chats",
   chat: "/chats/show/",
   chatUnlock: "/chats/unlock/",
@@ -20,4 +21,5 @@ export const Endpoints = {
   deleteEncrypText: "/documents/delete/",
   decryptText: "/documents/decrypt/",
   email: "/emails",
+  deleteEmail: "/emails/delete/",
 };
