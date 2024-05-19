@@ -30,7 +30,7 @@ const SignIn = () => {
     login.attempt(credentials);
     setTimeout(() => {
       setLoading(false);
-    }, 200);
+    }, 1000);
   };
   return (
     <div className="fixed left-0 right-0 top-0">
@@ -62,8 +62,8 @@ const SignIn = () => {
                     type="email"
                     name="email"
                     id="email"
-                    className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-300 border-gray-600 bg-gray-700 p-2.5 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                    placeholder="email"
+                    className="block w-full rounded-lg border-gray-600 bg-gray-700 p-2.5 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    placeholder="Email"
                     value={formdata.email}
                     onChange={onHandleChange}
                     required
@@ -74,8 +74,8 @@ const SignIn = () => {
                     type="password"
                     name="password"
                     id="password"
-                    placeholder="password"
-                    className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-300 border-gray-600 bg-gray-700 p-2.5 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    placeholder="Password"
+                    className="block w-full rounded-lg border-gray-600 bg-gray-700 p-2.5 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     value={formdata.password}
                     onChange={onHandleChange}
                     required

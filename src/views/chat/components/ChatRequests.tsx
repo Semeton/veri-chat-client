@@ -10,11 +10,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Alerts from "../../../util/alerts/Alerts";
 import BarLoader from "../../components/BarLoader";
+import Loader from "../../components/Loader";
 import { useNavigate } from "react-router-dom";
 
 const ChatRequests: React.FC = () => {
   const [chatsRequest, setChatsRequest] = useState<Array<object>>([]);
   const [loading, setLoading] = useState<Boolean>(false);
+  const [sending, setSending] = useState<Boolean>(false);
   const http = Http.getInstance();
   const chatUrl = baseUrl + Endpoints.receivedChatRequest;
   const acceptUrl = baseUrl + Endpoints.acceptRequest;
@@ -45,11 +47,13 @@ const ChatRequests: React.FC = () => {
   };
 
   const acceptRequest = (uuid: string) => {
-    // alert("Chat id: " + uuid);
+    setLoading(true);
     http
       .get(acceptUrl + uuid)
       .then((res) => {
         Alerts.success(res.message);
+        getChatsRequest();
+        setSending(false);
         navigate("/chats");
       })
       .catch((e) => {
@@ -62,6 +66,7 @@ const ChatRequests: React.FC = () => {
     "flex bg-gray-950 p-3 rounded-md border border-gray-800 items-center justify-between mt-1";
   return (
     <div className="">
+      {sending && <Loader />}
       {loading ? (
         <BarLoader />
       ) : chatsRequest.length === 0 ? (

@@ -74,11 +74,11 @@ const Privacy: React.FC = () => {
   };
 
   const privacyPolicy = () => {
-    window.open("https://verivault.test/privacy-policy", "_blank");
+    window.open("https://verivault.xyz/privacy-policy", "_blank");
   };
 
   const termsOfService = () => {
-    window.open("https://verivault.test/terms-of-service", "_blank");
+    window.open("https://verivault.xyz/terms-of-service", "_blank");
   };
 
   const styles: string =

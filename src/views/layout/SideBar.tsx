@@ -6,6 +6,7 @@ import {
   faGear,
   faRightFromBracket,
   faEyeSlash,
+  faFilePen,
 } from "@fortawesome/free-solid-svg-icons";
 import User from "../../services/api/auth/User";
 import { userDetails } from "../../lib/UserDetails";
@@ -44,7 +45,7 @@ const SideBar: React.FC = () => {
                 className="text-center w-[1.5rem] col-span-2"
                 icon={faUser}
               />
-              <span className="col-span-4">Profile</span>
+              <span className="col-span-4 mr-1">Profile</span>
             </div>
           </Link>
           <Link
@@ -69,6 +70,18 @@ const SideBar: React.FC = () => {
                 className="text-center w-[1.5rem] col-span-2"
               />
               <span className="col-span-4">Privacy</span>
+            </div>
+          </Link>
+          <Link
+            to="/feedback"
+            className="flex items-center py-2 hover:bg-gray-700"
+          >
+            <div className="grid grid-cols-6 items-center gap-5">
+              <FontAwesomeIcon
+                icon={faFilePen}
+                className="text-center w-[1.5rem] col-span-2"
+              />
+              <span className="col-span-4 -mr-3">Feedback</span>
             </div>
           </Link>
           <div

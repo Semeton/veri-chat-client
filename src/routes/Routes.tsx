@@ -21,6 +21,7 @@ import ChatView from "../views/chat/components/ChatView";
 import VaultContentView from "../views/vault/components/VaultContentView";
 import ChangePassword from "../views/settings/items/ChangePassword";
 import ChatSettings from "../views/chat/components/ChatSettings";
+import Feedback from "../views/feedback/Feedback";
 
 const Router = (): JSX.Element => {
   return (
@@ -32,6 +33,9 @@ const Router = (): JSX.Element => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<AuthRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route path="/feedback" element={<AuthRoute />}>
+          <Route path="/feedback" element={<Feedback />} />
         </Route>
         <Route path="/sidebar" element={<AuthRoute />}>
           <Route path="/sidebar" element={<SideBar />} />

@@ -4,7 +4,7 @@ import Http from "../../../services/handlers/Http";
 import { baseUrl } from "../../../services/api/urls/Links";
 import { Endpoints } from "../../../services/api/urls/Endpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import { faCaretRight, faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import Alerts from "../../../util/alerts/Alerts";
 import BarLoader from "../../components/BarLoader";
 import Swal from "sweetalert2";
@@ -214,8 +214,8 @@ const RecentChats: React.FC = () => {
                 </div>
               </div>
               <div className="mr-2">
-                <p className="text-xs text-green-500">NEW</p>
-                {/* <FontAwesomeIcon icon={faEllipsisVertical} /> */}
+                {/* <p className="text-xs text-green-500">NEW</p> */}
+                <FontAwesomeIcon icon={faCaretRight} />
               </div>
             </div>
           ))}

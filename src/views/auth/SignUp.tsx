@@ -145,7 +145,7 @@ const SignUp = () => {
                     name="name"
                     id="name"
                     className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-300 bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
-                    placeholder="firstname lastname"
+                    placeholder="Firstname Lastname"
                     value={formdata.name}
                     onChange={onHandleChange}
                     required
@@ -158,7 +158,7 @@ const SignUp = () => {
                     name="email"
                     id="email"
                     className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-500 bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
-                    placeholder="email"
+                    placeholder="Email"
                     value={formdata.email}
                     onChange={onHandleChange}
                     required
@@ -170,7 +170,7 @@ const SignUp = () => {
                     type="password"
                     name="password"
                     id="password"
-                    placeholder="password"
+                    placeholder="Password"
                     className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-500 bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
                     value={formdata.password}
                     onChange={onHandleChange}
@@ -183,7 +183,7 @@ const SignUp = () => {
                     type="password"
                     name="password_confirmation"
                     id="password_confirmation"
-                    placeholder="confirm password"
+                    placeholder="Confirm Password"
                     className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border-gray-600 bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
                     value={formdata.password_confirmation}
                     onChange={onHandleChange}
@@ -211,7 +211,7 @@ const SignUp = () => {
                     <label className="text-gray-300">
                       Accept{" "}
                       <a
-                        href="https://verivault.xyz"
+                        href="https://verivault.xyz/privacy-policy"
                         className="text-indigo-500"
                       >
                         Privacy Policy

@@ -1,5 +1,6 @@
 export const Endpoints = {
   login: "/users/login",
+  feedback: "/feedback",
   register: "/users/register",
   update: "/users/update",
   updatePassword: "/users/update/password",
