@@ -44,13 +44,9 @@ const AddToHomeScreenBanner = () => {
           <p>
             {ios ? (
               <>
-                To add this app to your home screen, tap the{" "}
+                To add this app to your iOS mobile device, tap the{" "}
                 <strong>
-                  Share{" "}
-                  <FontAwesomeIcon
-                    className="ml-2"
-                    icon={faArrowUpFromBracket}
-                  />
+                  Share <FontAwesomeIcon icon={faArrowUpFromBracket} />
                 </strong>{" "}
                 button and then <strong>Add to Home Screen</strong>.
               </>

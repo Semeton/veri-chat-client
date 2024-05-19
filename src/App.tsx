@@ -16,7 +16,7 @@ function App() {
     if (updateAvailable) {
       Swal.fire({
         title: "Update Available!",
-        text: "A new update is available. Click Okay to refresh the app and apply the latest updates.",
+        text: "A new update is availabl and will be applied automatically.",
         icon: "info",
         iconColor: "#6366f1",
         color: "#fff",
@@ -26,7 +26,7 @@ function App() {
         confirmButtonText: "Okay",
       }).then((result) => {
         if (result.isConfirmed) {
-          refreshPage();
+          setTimeout(() => refreshPage(), 3000);
         }
       });
     }
