@@ -6,6 +6,7 @@ import messaging from "../../assets/images/messaging.jpg";
 import email from "../../assets/images/email.jpg";
 import vault from "../../assets/images/vault.jpg";
 import welcome from "../../assets/images/welcome.jpg";
+import AddToHomeScreenBanner from "../../AddToHomeScreenBanner";
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -59,6 +60,7 @@ const Onboarding = () => {
   return (
     <div className="fixed left-0 right-0 top-0">
       <div className="flex h-screen flex-col items-center bg-gray-800 px-5 text-center text-white">
+        <AddToHomeScreenBanner />
         <div className="mb-4 h-[42vh] w-screen overflow-hidden">
           <img
             className="mx-auto my-auto"

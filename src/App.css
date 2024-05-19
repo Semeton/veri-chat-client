@@ -75,3 +75,29 @@
     background: radial-gradient(#090537, #4338ca);
     overflow: hidden;
 }
+
+.addToHomeScreenBanner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #6366f1;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.addToHomeScreenBanner strong {
+    font-weight: bold;
+}
+
+.addToHomeScreenBanner .closeButton {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}

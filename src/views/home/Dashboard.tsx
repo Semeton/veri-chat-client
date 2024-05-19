@@ -20,9 +20,6 @@ const Dashboard = () => {
   const page = (
     <>
       <div className="text-white">
-        {/* <div className="mt-4 mb-8">
-          Welcome, <b>{userDetails.name}</b>
-        </div> */}
         <QuickAccess />
         <div className="mb-4 mt-10">
           <div className="mb-1 grid grid-cols-2">

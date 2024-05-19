@@ -24,10 +24,7 @@ const Privacy: React.FC = () => {
   const purgeDataUrl = baseUrl + Endpoints.purgeData;
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    setLoading(false);
 
     const header = document.getElementById("headerLayout");
     if (header) {
@@ -38,10 +35,7 @@ const Privacy: React.FC = () => {
   const navigate = useNavigate();
 
   const goBack = () => {
-    setLoading(true);
-    setTimeout(() => {
-      navigate("/dashboard");
-    }, 1000);
+    navigate("/dashboard");
   };
 
   const purgeData = () => {

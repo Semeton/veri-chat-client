@@ -82,7 +82,7 @@ const LargeScreen = () => {
             <ol className="list-decimal pl-6">
               <li>Open Chrome on your Android device.</li>
               <li>Visit this website.</li>
-              <li>Tap the menu button and select "Add to Home Screen."</li>
+              <li>Tap the menu button and select "Install App."</li>
             </ol>
           </div>
         </div>
