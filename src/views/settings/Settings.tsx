@@ -38,6 +38,8 @@ const Settings: React.FC = () => {
       iconColor: "#6366f1",
       confirmButtonColor: "#6366f1",
       color: "#fff",
+      background: "#1f2937",
+      width: "80%",
       text: "To set up two-factor authentication for your account, please visit verivault.xyz on a desktop screen. Log in to your account and navigate to the profile section.",
       footer:
         '<a href="https:verivault.xyz/login" target="_blank">Visit Vault on the Web</a>',
@@ -50,6 +52,8 @@ const Settings: React.FC = () => {
       // title: "Two-Factor Authentication",
       iconColor: "#6366f1",
       confirmButtonColor: "#6366f1",
+      background: "#1f2937",
+      width: "80%",
       color: "#fff",
       text: "To permanently delete your account, please visit verivault.xyz on a desktop screen. Log in to your account and navigate to the profile section.",
       footer:

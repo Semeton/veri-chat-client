@@ -52,6 +52,8 @@ const RecentChats: React.FC = () => {
         iconColor: "#6366f1",
         showCancelButton: true,
         color: "#fff",
+        background: "#1f2937",
+        width: "80%",
         confirmButtonColor: "#6366f1",
         cancelButtonColor: "#d33",
         confirmButtonText: "Okay",
@@ -67,6 +69,8 @@ const RecentChats: React.FC = () => {
         color: "#fff",
         inputLabel: "Enter chat secret",
         inputPlaceholder: "Enter chat secret",
+        background: "#1f2937",
+        width: "80%",
         confirmButtonColor: "rgb(79 70 229)",
         inputAttributes: {
           maxlength: "10",
@@ -100,6 +104,8 @@ const RecentChats: React.FC = () => {
       inputLabel: "Set chat secret",
       inputPlaceholder: "Enter chat secret",
       confirmButtonColor: "rgb(79 70 229)",
+      background: "#1f2937",
+      width: "80%",
       inputAttributes: {
         maxlength: "10",
         autocapitalize: "off",
@@ -130,6 +136,8 @@ const RecentChats: React.FC = () => {
         inputLabel: "Chat secret",
         inputPlaceholder: "Confirm chat secret",
         confirmButtonColor: "rgb(79 70 229)",
+        background: "#1f2937",
+        width: "80%",
         inputAttributes: {
           maxlength: "10",
           autocapitalize: "off",

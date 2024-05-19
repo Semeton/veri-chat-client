@@ -49,6 +49,8 @@ const VaultContents: React.FC = () => {
       inputLabel: "Enter vault secret",
       inputPlaceholder: "Enter vault secret",
       confirmButtonColor: "rgb(79 70 229)",
+      background: "#1f2937",
+      width: "80%",
       inputAttributes: {
         maxlength: "10",
         autocapitalize: "off",
@@ -85,6 +87,8 @@ const VaultContents: React.FC = () => {
       iconColor: "#d33",
       showCancelButton: true,
       color: "#fff",
+      background: "#1f2937",
+      width: "80%",
       confirmButtonColor: "#6366f1",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it",

@@ -67,6 +67,8 @@ const ChatSettings: React.FC = () => {
       iconColor: "#d33",
       showCancelButton: true,
       color: "#fff",
+      background: "#1f2937",
+      width: "80%",
       confirmButtonColor: "#6366f1",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, unlock it!",
@@ -94,14 +96,14 @@ const ChatSettings: React.FC = () => {
       {loading && <Loader />}
       <div className="flex h-screen flex-col justify-between bg-gray-900 text-white">
         <main className="mb-auto overflow-y-scroll">
-          <header className="grid grid-cols-3 justify-between text-white">
+          <header className="grid grid-cols-6 justify-between text-white">
             <div
               onClick={() => window.history.back()}
-              className="h-16 flex p-6 items-center"
+              className="h-16 flex p-6 items-center col-span-1"
             >
               <FontAwesomeIcon icon={faArrowLeftLong} size="lg" />
             </div>
-            <div className="mx-auto">
+            <div className="mx-auto col-span-4">
               <div className="flex justify-center my-2 mt-4">
                 <div className="text-indigo-500 rounded-full h-20 w-20 bg-gray-950 text-center justify-center flex items-center">
                   <FontAwesomeIcon
@@ -116,7 +118,7 @@ const ChatSettings: React.FC = () => {
                 <p className="text-sm text-center">{chatEmail}</p>
               </div>
             </div>
-            <div></div>
+            <div className="col-span-1 h-16 flex p-6 items-center text-gray-900"></div>
           </header>
           <div className="p-4 px-5 grid">
             {other === 0 ? (

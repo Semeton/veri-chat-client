@@ -137,7 +137,7 @@ const ChatView: React.FC = () => {
     <div className="fixed">
       {/* {loading && <Loader />} */}
       <div className="flex h-screen flex-col justify-between bg-gray-900">
-        <header className="mb-2 grid grid-cols-6 items-center justify-between bg-gray-950 text-white">
+        <header className="mb-1 grid grid-cols-6 items-center justify-between text-white">
           <div
             onClick={() => navigate("/chats")}
             className="flex h-16 items-center p-6"
@@ -156,7 +156,7 @@ const ChatView: React.FC = () => {
             <FontAwesomeIcon icon={faGear} size="lg" />
           </div>
         </header>
-        <main className="mb-auto mt-2 overflow-y-scroll">
+        <main className="mb-auto overflow-y-scroll">
           {loading ? (
             <BarLoader />
           ) : chatMessages.length === 0 ? (
@@ -177,6 +177,9 @@ const ChatView: React.FC = () => {
             </div>
           ) : (
             <div className="block" ref={contentRef}>
+              <p className="text-xs text-white text-center opacity-40 my-2">
+                This chat is end-to-end encrypted.
+              </p>
               {chatMessages.map((message) => (
                 <div className="">
                   {(message as any).user_id === me ? (
@@ -205,22 +208,35 @@ const ChatView: React.FC = () => {
         </main>
         <div className="bottom-0 h-24 w-screen bg-gray-950 py-5">
           <div className="flex items-center justify-around text-center text-sm text-white">
-            <input
-              type="text"
-              name="message"
-              id="message"
-              className="focus:ring-primary-600 focus:border-primary-600 ml-2 block h-12 w-[77vw] rounded-lg bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
-              value={formdata.message}
-              onChange={onHandleChange}
-              required
-            />
-            {formdata.message.length > 0 && (
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-950 text-center text-lg font-bold text-indigo-500"
-                onClick={sendMessage}
-              >
-                <FontAwesomeIcon icon={faPaperPlane} />
-              </div>
+            {formdata.message.length > 0 ? (
+              <>
+                <input
+                  type="text"
+                  name="message"
+                  id="message"
+                  className="focus:ring-primary-600 focus:border-primary-600 ml-2 block h-12 w-[78vw] rounded-lg bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
+                  value={formdata.message}
+                  onChange={onHandleChange}
+                  required
+                />
+                <div
+                  className="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-950 text-center text-lg font-bold text-indigo-500"
+                  onClick={sendMessage}
+                >
+                  <FontAwesomeIcon icon={faPaperPlane} />
+                </div>
+              </>
+            ) : (
+              <input
+                type="text"
+                name="message"
+                id="message"
+                placeholder="Start typing..."
+                className="focus:ring-primary-600 opacity-40 focus:border-primary-600 ml-2 block h-12 w-96 rounded-lg bg-gray-700 p-2.5 text-white placeholder-gray-400 sm:text-sm"
+                value={formdata.message}
+                onChange={onHandleChange}
+                required
+              />
             )}
           </div>
         </div>

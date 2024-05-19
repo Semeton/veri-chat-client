@@ -47,6 +47,8 @@ const SentMails: React.FC = () => {
       iconColor: "#d33",
       showCancelButton: true,
       color: "#fff",
+      background: "#1f2937",
+      width: "80%",
       confirmButtonColor: "#6366f1",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it",

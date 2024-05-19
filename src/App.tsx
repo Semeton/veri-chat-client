@@ -3,6 +3,7 @@ import LargeScreen from "./LargeScreen";
 import Router from "./routes/Routes";
 import "./App.css";
 import useServiceWorker from "./hooks/useServiceWorker";
+import Swal from "sweetalert2";
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -13,8 +14,21 @@ function App() {
       setIsOnline(navigator.onLine);
     };
     if (updateAvailable) {
-      alert("New updates available. Click ok to update your app");
-      refreshPage();
+      Swal.fire({
+        title: "Update Available!",
+        text: "A new update is available. Click Okay to refresh the app and apply the latest updates.",
+        icon: "info",
+        iconColor: "#6366f1",
+        color: "#fff",
+        background: "#1f2937",
+        width: "80%",
+        confirmButtonColor: "#6366f1",
+        confirmButtonText: "Okay",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          refreshPage();
+        }
+      });
     }
     window.addEventListener("online", handleOnlineStatusChange);
     window.addEventListener("offline", handleOnlineStatusChange);
